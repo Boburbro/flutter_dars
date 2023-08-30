@@ -49,7 +49,7 @@ class MyAppState extends State<MyApp> {
                 ElevatedButton(onPressed: savolJavob, child: Text(javob3, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
                 ElevatedButton(onPressed: savolJavob, child: Text(javob4, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
               ],
-              ),
+            ),
           ),
         ),
     );
