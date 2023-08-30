@@ -13,9 +13,17 @@ class MyApp extends StatefulWidget{
 
 class MyAppState extends State<MyApp> {
   String savol = "Savol 1";
+  String javob1 = "javob 1 s1";
+  String javob2 = "javob 2 s1";
+  String javob3 = "javob 3 s1";
+  String javob4 = "javob 4 s1";
   void savolJavob(){
     setState(() {
       savol = "savol 2";
+        javob1 = "javob 1 s2";
+        javob2 = "javob 2 s2";
+        javob3 = "javob 3 s2";
+        javob4 = "javob 4 s2";
     });
   }
 
@@ -36,10 +44,10 @@ class MyAppState extends State<MyApp> {
               children: [
                 Text(savol, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
                 
-                ElevatedButton(onPressed: savolJavob, child: Text("javob 1", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text("javob 2", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text("javob 3", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text("javob 4", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(javob1, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(javob2, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(javob3, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(javob4, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
               ],
               ),
           ),
