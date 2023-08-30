@@ -17,13 +17,24 @@ class MyAppState extends State<MyApp> {
   String javob2 = "javob 2 s1";
   String javob3 = "javob 3 s1";
   String javob4 = "javob 4 s1";
+  int hozirgiRaqam = 2;
   void savolJavob(){
     setState(() {
-      savol = "savol 2";
+      if (hozirgiRaqam==2){
+        savol = "savol 2";
         javob1 = "javob 1 s2";
         javob2 = "javob 2 s2";
         javob3 = "javob 3 s2";
         javob4 = "javob 4 s2";
+      }else if (hozirgiRaqam==3){
+        savol = "savol 3";
+        javob1 = "javob 1 s3";
+        javob2 = "javob 2 s3";
+        javob3 = "javob 3 s3";
+        javob4 = "javob 4 s3";
+      }
+      
+      hozirgiRaqam++;
     });
   }
 
