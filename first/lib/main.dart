@@ -79,7 +79,7 @@ class MyAppState extends State<MyApp> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(30.0),
-            child: Column(
+            child: hozirgiRaqam < Savollar.length ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -90,7 +90,7 @@ class MyAppState extends State<MyApp> {
                 ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][2]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
                 ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][3]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
               ],
-            ),
+            ) : Center(child: Text("Savollar tugab qoldiyu :)", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),)),
           ),
         ),
     );
