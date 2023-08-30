@@ -12,28 +12,58 @@ class MyApp extends StatefulWidget{
 }
 
 class MyAppState extends State<MyApp> {
-  String savol = "Savol 1";
-  String javob1 = "javob 1 s1";
-  String javob2 = "javob 2 s1";
-  String javob3 = "javob 3 s1";
-  String javob4 = "javob 4 s1";
-  int hozirgiRaqam = 2;
+  List<Map<String, dynamic>> Savollar = [
+    {
+      "savol":"1.What ____ your name?",
+      "javoblar":
+      [
+        {"matn":"are", "togrimi": false},
+        {"matn":"is", "togrimi": true},
+        {"matn":"am", "togrimi": false},
+        {"matn":"was", "togrimi": false},
+      ]
+    },
+    {
+      "savol":"2. How ___ you?",
+      "javoblar":[
+        {"matn":"is", "togrimi":false},
+        {"matn":"are", "togrimi":true},
+        {"matn":"it", "togrimi":false},
+        {"matn":"am", "togrimi":false},
+      ]
+    },
+    {
+      "savol":"3. How are ___ ?",
+      "javoblar":[
+        {"matn":"am", "togrimi":false},
+        {"matn":"is", "togrimi":false},
+        {"matn":"they", "togrimi":true},
+        {"matn":"not", "togrimi":false},
+      ]
+    },
+    {
+      "savol":"4. Which color ___ you like ?",
+      "javoblar":[
+        {"matn":"do", "togrimi":true},
+        {"matn":"black", "togrimi":false},
+        {"matn":"they", "togrimi":false},
+        {"matn":"not", "togrimi":false},
+      ]
+    },
+    {
+      "savol":"5. I __ tall",
+      "javoblar":[
+        {"matn":"is", "togrimi":false},
+        {"matn":"was", "togrimi":false},
+        {"matn":"not", "togrimi":false},
+        {"matn":"am", "togrimi":true},
+      ]
+    }
+  ];
+
+  int hozirgiRaqam = 0;
   void savolJavob(){
     setState(() {
-      if (hozirgiRaqam==2){
-        savol = "savol 2";
-        javob1 = "javob 1 s2";
-        javob2 = "javob 2 s2";
-        javob3 = "javob 3 s2";
-        javob4 = "javob 4 s2";
-      }else if (hozirgiRaqam==3){
-        savol = "savol 3";
-        javob1 = "javob 1 s3";
-        javob2 = "javob 2 s3";
-        javob3 = "javob 3 s3";
-        javob4 = "javob 4 s3";
-      }
-      
       hozirgiRaqam++;
     });
   }
@@ -53,12 +83,12 @@ class MyAppState extends State<MyApp> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(savol, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
+                Text(Savollar[hozirgiRaqam]['savol'], style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
                 
-                ElevatedButton(onPressed: savolJavob, child: Text(javob1, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text(javob2, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text(javob3, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text(javob4, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][0]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][1]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][2]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
+                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][3]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
               ],
             ),
           ),
