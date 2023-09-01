@@ -1,3 +1,5 @@
+import 'package:first/wigets/natija.dart';
+import 'package:first/wigets/savol.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -50,22 +52,26 @@ class MyAppState extends State<MyApp> {
         {"matn":"not", "togrimi":false},
       ]
     },
-    {
-      "savol":"5. I __ tall",
-      "javoblar":[
-        {"matn":"is", "togrimi":false},
-        {"matn":"was", "togrimi":false},
-        {"matn":"not", "togrimi":false},
-        {"matn":"am", "togrimi":true},
-      ]
-    }
+    
   ];
 
   int hozirgiRaqam = 0;
-  void savolJavob(){
+  int natija = 0;
+  void savolJavob(bool togrimi){
+    if (togrimi){
+      natija++;
+    }
     setState(() {
       hozirgiRaqam++;
     });
+  }
+
+  void RestartApp(){
+    setState(() {
+      natija = 0;
+      hozirgiRaqam = 0;
+    });
+    
   }
 
 
@@ -79,18 +85,11 @@ class MyAppState extends State<MyApp> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(30.0),
-            child: hozirgiRaqam < Savollar.length ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(Savollar[hozirgiRaqam]['savol'], style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),),
-                
-                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][0]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][1]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][2]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-                ElevatedButton(onPressed: savolJavob, child: Text(Savollar[hozirgiRaqam]['javoblar'][3]['matn'], style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),),
-              ],
-            ) : Center(child: Text("Savollar tugab qoldiyu :)", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),)),
+            child: hozirgiRaqam < Savollar.length ? Savol(
+              Savollar[hozirgiRaqam]['savol'],
+              Savollar[hozirgiRaqam]["javoblar"],
+               savolJavob
+               ) : Natija(natija, Savollar.length, RestartApp),
           ),
         ),
     );
