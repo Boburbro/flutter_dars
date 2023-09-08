@@ -26,16 +26,12 @@ class HomePage extends StatelessWidget {
                 child: ListView(
                   itemExtent: 80,
                   children: [
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
-                    UserItemView(),
+                    UserItemView(
+                      id: "1",
+                      ismi: "Anna",
+                      telefon: "25-24-225",
+                      rasmURL: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1600",
+                    ),
                   ],
                 ),
               )
