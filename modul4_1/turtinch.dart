@@ -6,7 +6,7 @@ void main(){
 
   var raqam = int.parse(stdin.readLineSync()!);
 
-  for (int n = 1 ; n < raqam; n++){
+  for (int n = 1 ; n <= raqam; n++){
     if (raqam % n == 0){
     number.add(n);
     }
