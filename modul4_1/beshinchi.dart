@@ -8,7 +8,7 @@ void main(){
     for (var bb in b) {
       if (aa == bb){
         if (c.contains(aa)){
-          int q = 1;
+          continue;
         }else{
           c.add(aa);
         }
