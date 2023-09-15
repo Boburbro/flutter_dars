@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 class DATA extends StatelessWidget {
 
   @override
@@ -12,10 +12,15 @@ class DATA extends StatelessWidget {
                     onPressed: (){},
                     child: RichText(
                       text: TextSpan(
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.montserrat().fontFamily,
+                          color: Colors.black,
+                          fontSize: 20
+                          ),
                         children: [
                           TextSpan(
-                            text: "Firday, "
+                            text: "Firday, ",
+                            style: TextStyle(fontWeight: FontWeight.bold)
                           ),
                           TextSpan(
                             text: "6 aug"
