@@ -1,0 +1,1 @@
+Bu qisimda vaqtni o'zgartirish va kalendarni chiqrishni o'rgandim

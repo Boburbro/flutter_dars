@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:modul4_4/widgets/ToDO.dart';
 import 'package:modul4_4/widgets/data.dart';
+// ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modul4_4/widgets/todolist.dart';
 
 void main(){
   runApp(MyApp()); 
@@ -13,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: GoogleFonts.montserrat().fontFamily
       ),
@@ -26,19 +29,11 @@ class MyApp extends StatelessWidget {
             children: [
               DATA(),
               TODO(),
-              Expanded(
-                child: ListView.builder(itemBuilder: (ctx, index){
-                  return ListTile(
-                    leading: IconButton(icon: Icon(Icons.circle_outlined), onPressed: (){},),
-                    title: Text("ToDo", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),),
-                    trailing: IconButton(icon: Icon(Icons.delete_forever_rounded, size: 20,), onPressed: (){},),
-                  );
-                },
-                itemCount: 5,),
-              )
+              todoList()
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(onPressed: (){}, child: Icon(Icons.add),),
       ),
     );
   }
