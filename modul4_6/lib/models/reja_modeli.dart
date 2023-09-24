@@ -19,7 +19,9 @@ class RejaModeli{
 
 class Rejalar{
   List<RejaModeli> _ruyxat = [
-    RejaModeli(id: "r1", nomi: "todo", kuni: DateTime.now()),
+    RejaModeli(id: "r1", nomi: "todo1", kuni: DateTime.now()),
+    RejaModeli(id: "r2", nomi: "todo2", kuni: DateTime.now()),
+    RejaModeli(id: "r3", nomi: "todo3", kuni: DateTime.now()),
   ];
 
   List<RejaModeli> get ruyxat{

@@ -23,8 +23,17 @@ class _MyAppState extends State<MyApp> {
 
   DateTime beliganganKun = DateTime.now();
 
-
-
+  void belgila(String rid){
+    setState(() {
+    rejalar.firstWhere((reja) => reja.id == rid).changeIsDone();      
+    });
+  }
+ 
+  void deleteToDo(String rid){
+    setState(() {
+      rejalar.removeWhere((reja) => reja.id == rid);
+    });
+  }
 
   void oldingiSana(){
     setState(() {
@@ -55,7 +64,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(rejalar);
     return MaterialApp(
       theme: ThemeData(
         fontFamily: GoogleFonts.montserrat().fontFamily
@@ -70,8 +78,8 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               DATA(getDataByKalendar, beliganganKun, oldingiSana, keyingiSana),
-              TODO(),
-              TODOLIST(rejalar),
+              TODO(rejalar),
+              TODOLIST(rejalar, belgila, deleteToDo),
              ],
           ),
         ),
