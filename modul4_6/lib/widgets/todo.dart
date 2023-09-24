@@ -18,10 +18,17 @@ class TODO extends StatelessWidget {
             children: [
               Text(
                 rejalar.length < 10 ? "0${rejalar.length}" : "${rejalar.length}", 
-                style: TextStyle(fontWeight: FontWeight.w600
+                style: TextStyle(
+                  fontWeight: FontWeight.w600
                 )
               ),
-              Text("Barcha rejalaringiz", style: TextStyle(fontSize: 12, color: Colors.black54))
+              Text(
+                "Barcha rejalaringiz", 
+                style: TextStyle(
+                  fontSize: 12, 
+                  color: Colors.black54
+                  )
+                )
             ],
           ),
           Column(
