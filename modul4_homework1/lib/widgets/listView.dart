@@ -13,7 +13,7 @@ class LISTVIEW extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(backgroundColor: Colors.amber,),
       title: Text("${ruyxat.nomi}, ${ruyxat.summa} so'm"),
-      subtitle: Text("${DateFormat('d MMMM, yyy').format(nowDay)}   10 January, 2023"),
+      subtitle: Text("${DateFormat('d MMMM, yyy').format(nowDay)}"),
       trailing: IconButton(icon: Icon(Icons.delete_forever, color: Colors.red,), onPressed: (){deleteXisob(ruyxat.rId);},),
                 );
   }

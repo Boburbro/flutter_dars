@@ -18,7 +18,10 @@ class DATALIST extends StatelessWidget {
          return LISTVIEW(ruyxat[index], nowDay, deleteXisob);
       }, itemCount: ruyxat.length,) : Column(
         children: [
-          Text("Siz daxosiz sizda chiqim yo'q! ")
+          // SizedBox(height: 9,),
+          Text("Siz daxosiz sizda chiqim yo'q! ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+          SizedBox(height: 50,),
+          Image.asset("assets/profit.png", width: 200, fit: BoxFit.cover,)
         ],
       )
     );
