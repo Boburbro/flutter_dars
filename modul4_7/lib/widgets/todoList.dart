@@ -12,10 +12,16 @@ class TODOLIST extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       
-      child: ListView.builder(itemBuilder: (ctr, index){
+      child: rejalar.length > 0 ? ListView.builder(itemBuilder: (ctr, index){
         return TODOVIEW(rejalar[index], belgilash, deleteToDo);
       },
-      itemCount: rejalar.length,),
+      itemCount: rejalar.length,) : Column(
+        children: [
+          Text("Hozircha rejalar yo'q, uxlimiz!", style: TextStyle(fontWeight: FontWeight.bold),),
+          SizedBox(height: 20,),
+          Image.asset("assets/imgs/sleeping.png", width: 200, fit: BoxFit.cover,)
+        ]
+      ) ,
     );
   }
 }

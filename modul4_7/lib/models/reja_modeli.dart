@@ -27,5 +27,15 @@ class Rejalar{
   List<RejaModeli> get ruyxat{
     return _ruyxat;
   } 
+
+  List<RejaModeli> todoByDay(DateTime day){
+    return _ruyxat.where((todo) => 
+    todo.kuni.day == day.day && todo.kuni.month == day.month && todo.kuni.year == day.year
+    ).toList();
+  }
+
+  void addToDO(String rejanomi, DateTime rejakuni){
+    _ruyxat.add(RejaModeli(id: "r${_ruyxat.length + 1}", nomi: rejanomi, kuni: rejakuni));
+  }
 }
 
