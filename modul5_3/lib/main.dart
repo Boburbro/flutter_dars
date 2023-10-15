@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_month_picker/flutter_month_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modul5_3/models/expense.dart';
+import 'package:modul5_3/widgets/add_expense.dart';
 import 'package:modul5_3/widgets/body.dart';
 import 'package:modul5_3/widgets/high.dart';
 
@@ -25,7 +27,10 @@ class HOMEPAGE extends StatefulWidget {
 }
 
 class _HOMEPAGEState extends State<HOMEPAGE> {
+  Expenses items = Expenses();
   DateTime nowDay = DateTime.now();
+  // double budgetLimit = 10000000;
+
 
   void openKalendar(BuildContext context) {
     showMonthPicker(
@@ -67,23 +72,47 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
     }
   }
 
+  void openModalScreen(BuildContext context) {
+    showModalBottomSheet(
+        isDismissible: false,
+        // isScrollControlled: true,a
+        context: context,
+        builder: (ctx) {
+          return ADDEXPENSE(addNewExpense);
+        });
+  }
+
+  void addNewExpense(String title, DateTime date, double amount){
+    setState(() {
+      items.addNewExpenses(title, date, amount);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(items.totalItems(nowDay));
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("My wallet"),
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.add))
-        ],
+        title: const Text("My wallet"),
+        // actions: [
+        //   IconButton(onPressed: (){}, icon: Icon(Icons.add))
+        // ],
       ),
       body: Column(
         children: [
-          SizedBox(height: 30,),
-          HIGH(nowDay, openKalendar, nextMonth, formerMonth),
-          SizedBox(height: 50,),
-          BODY()
+          HIGH(nowDay, openKalendar, nextMonth, formerMonth, items.totalItems(nowDay)),
+          const SizedBox(
+            height: 10,
+          ),
+          BODY(items.itemsByMonth(nowDay), items.totalItems(nowDay))
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          openModalScreen(context);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

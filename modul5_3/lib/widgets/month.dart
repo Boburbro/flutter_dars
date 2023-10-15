@@ -1,6 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:modul5_3/widgets/edit_monthly_budget.dart';
 
-class MONTH extends StatelessWidget {
+// ignore: must_be_immutable
+class MONTH extends StatefulWidget {
+  final double totleExpens;
+  double budgetLimit = 10000000;
+
+  MONTH(this.totleExpens);
+
+  @override
+  State<MONTH> createState() => _MONTHState();
+}
+
+class _MONTHState extends State<MONTH> {
+  double nn(m) {
+    if (m < 1.0) {
+      return m;
+    } else {
+      return 1.0;
+    }
+  }
+
+  void showMonthlyBudgetScreen(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (ctx) {
+          return EDITMONTHLYBUDGET(changeLimit, widget.budgetLimit);
+        },
+        isDismissible: false);
+  }
+
+  void changeLimit(double newLimit) {
+    setState(() {
+      widget.budgetLimit = newLimit;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,16 +47,19 @@ class MONTH extends StatelessWidget {
               children: [
                 Text("Oylik buyjet:"),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    showMonthlyBudgetScreen(context);
+                  },
                   icon: Icon(
                     Icons.edit,
                     size: 16,
                   ),
-                  label: Text("1,000,000so'm"),
+                  label: Text("${widget.budgetLimit} so'm"),
                 ),
               ],
             ),
-            Text("12%")
+            Text(
+                "${((widget.totleExpens * 100) / widget.budgetLimit < 100 ? ((widget.totleExpens * 100) / widget.budgetLimit) : 100).toStringAsFixed(1)}%")
           ],
         ),
         SizedBox(
@@ -35,7 +73,8 @@ class MONTH extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
           child: FractionallySizedBox(
             alignment: Alignment.centerLeft,
-            widthFactor: 0.5,
+            widthFactor: nn(((widget.totleExpens * 100) / widget.budgetLimit) /
+                100), // (totleExpens*100)/1000000 = 50 -> 5, 0.5
             heightFactor: 2,
             child: Container(
               width: 10,
