@@ -16,8 +16,12 @@ class BODY extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            padding:
-                const EdgeInsets.only(top: 10, right: 30, left: 30, bottom: 10),
+            padding: const EdgeInsets.only(
+              top: 10,
+              right: 30,
+              left: 30,
+              bottom: 10,
+            ),
             child: MONTH(totleExpens),
             decoration: BoxDecoration(
                 color: Color.fromRGBO(239, 240, 250, 1),
