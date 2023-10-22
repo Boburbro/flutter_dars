@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:modul5_6/widget/modalBottoms/changeLimit.dart';
 
 class BUDGET extends StatelessWidget {
+  final double budgetLimit;
+  final double totleExpens;
+  final Function changeLimit;
+
+  BUDGET(this.budgetLimit, this.totleExpens, this.changeLimit);
+
+  double nn(m) {
+    if (m < 1.0) {
+      return m;
+    } else {
+      return 1.0;
+    }
+  }
+
+  void openChangeScreen(BuildContext context) {
+    showModalBottomSheet(
+      isDismissible: false,
+        context: context,
+        builder: (ctx) {
+          return CHANGELIMIT(changeLimit, budgetLimit);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,12 +36,15 @@ class BUDGET extends StatelessWidget {
               children: [
                 Text("Oylik budget: "),
                 TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      openChangeScreen(context);
+                    },
                     icon: Icon(Icons.edit),
-                    label: Text("1,000,000 so'm")),
+                    label: Text("${budgetLimit.toStringAsFixed(0)} so'm")),
               ],
             ),
-            Text("25.5%")
+            Text(
+                "${((totleExpens * 100) / budgetLimit < 100 ? ((totleExpens * 100) / budgetLimit) : 100).toStringAsFixed(1)}%")
           ],
         ),
         Row(
@@ -31,7 +58,7 @@ class BUDGET extends StatelessWidget {
                     color: Color.fromRGBO(212, 219, 239, 1)),
                 child: FractionallySizedBox(
                   alignment: Alignment.centerLeft,
-                  widthFactor: 0.5,
+                  widthFactor: nn(((totleExpens * 100) / budgetLimit) / 100),
                   heightFactor: 2,
                   child: Container(
                     width: 10,

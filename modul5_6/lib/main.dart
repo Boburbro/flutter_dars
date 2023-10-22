@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_month_picker/flutter_month_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modul5_6/models/expense.dart';
 import 'package:modul5_6/widget/body/body.dart';
-import 'package:modul5_6/widget/high.dart';
+import 'package:modul5_6/widget/high/high.dart';
+import 'package:modul5_6/widget/modalBottoms/addNewExpense.dart';
 
 void main(List<String> args) {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp
+
+  ]);
+
   runApp(MyApp());
 }
 
@@ -25,6 +37,8 @@ class HOMEPAGE extends StatefulWidget {
 }
 
 class _HOMEPAGEState extends State<HOMEPAGE> {
+  Expenses items = Expenses();
+  double budgetLimit = 10000000;
   DateTime nowDay = DateTime.now();
 
   void openKalendar(BuildContext context) {
@@ -52,6 +66,7 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
       });
     }
   }
+
   void formerMonth() {
     if (nowDay.year == DateTime.now().year - 1) {
       return;
@@ -60,6 +75,33 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
         nowDay = DateTime(nowDay.year, nowDay.month - 1, nowDay.day);
       });
     }
+  }
+
+  void addNewExpense(BuildContext context) {
+    void addNewExpensesWidget(String title, DateTime date, double amount, IconData icon) {
+      setState(() {
+        items.addNewExpenses(title, date, amount, icon);
+      });
+    }
+
+    showModalBottomSheet(
+        isDismissible: false,
+        context: context,
+        builder: (ctx) {
+          return ADDNEWEXPENSE(addNewExpensesWidget);
+        });
+  }
+
+  void changeLimit(double newLimit) {
+    setState(() {
+      budgetLimit = newLimit;
+    });
+  }
+
+  void removeItems(String rID) {
+    setState(() {
+      items.removeItem(rID);
+    });
   }
 
   @override
@@ -71,12 +113,20 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
       ),
       body: Column(
         children: [
-          HIGH(openKalendar, nowDay, nextMonth, formerMonth),
+          HIGH(openKalendar, nowDay, nextMonth, formerMonth,
+              items.totalItems(nowDay)),
           SizedBox(
             height: 10,
           ),
-          BODY()
+          BODY(items.itemsByMonth(nowDay), items.totalItems(nowDay),
+              budgetLimit, changeLimit, removeItems)
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          addNewExpense(context);
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

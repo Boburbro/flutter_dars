@@ -6,8 +6,9 @@ class HIGH extends StatelessWidget {
   final DateTime nowDay;
   final Function nextMonth;
   final Function formerMonth;
+  final double totalItems;
 
-  HIGH(this.openKalendar, this.nowDay, this.nextMonth, this.formerMonth);
+  HIGH(this.openKalendar, this.nowDay, this.nextMonth, this.formerMonth, this.totalItems);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class HIGH extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "200,000",
+                    totalItems.toStringAsFixed(0),
                     style: TextStyle(fontSize: 45),
                   ),
                   Text(

@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:modul5_6/models/expense.dart';
+import 'package:modul5_6/widget/body/itemListBuid.dart';
 
 class OPENLIST extends StatelessWidget {
+
+  final List<Expense> items;
+  final Function removeItem;
+
+  OPENLIST(this.items, this.removeItem);
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -8,16 +17,9 @@ class OPENLIST extends StatelessWidget {
         child: ListView.builder(
           padding: EdgeInsets.all(10),
           itemBuilder: (ctx, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.amber,
-              ),
-              title: Text("Tarvuz"),
-              subtitle: Text("21 October, 2023"),
-              trailing: Text("20,000 so'm"),
-            );
+            return ITEMLISTBUILD(items[index].id, "${items[index].title}", DateFormat('d MMMM, yyyy').format(items[index].date), "${items[index].amount}", items[index].icon, removeItem, ValueKey(items[index].id));
           },
-          itemCount: 10,
+          itemCount: items.length,
         ),
       )
     ]);
