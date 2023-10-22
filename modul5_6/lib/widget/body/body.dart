@@ -12,10 +12,11 @@ class BODY extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Stack(
+    return Stack(
         children: [
           Container(
+            width: double.infinity,
+            height: 507,
             padding: EdgeInsets.only(
               top: 10,
               right: 24,
@@ -29,11 +30,16 @@ class BODY extends StatelessWidget {
                     topLeft: Radius.circular(60),
                     topRight: Radius.circular(60))),
           ),
+
+
+          
+
+
           Positioned(
             bottom: 0,
             child: Container(
               clipBehavior: Clip.hardEdge,
-              height: MediaQuery.of(context).size.height - 290,
+              height: 400,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -44,7 +50,6 @@ class BODY extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
+      );
   }
 }
