@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/Models/IconPack.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:intl/intl.dart';
+import 'package:modul5_6/widget/adabtive/adabtive_button.dart';
+import 'package:modul5_6/widget/adabtive/adabtive_textFild.dart';
 
 class ADDNEWEXPENSE extends StatefulWidget {
   final Function addNewExpenses;
@@ -56,65 +59,50 @@ class _ADDNEWEXPENSEState extends State<ADDNEWEXPENSE> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          TextField(
-            controller: nomi,
-            decoration: InputDecoration(
-                labelText: "Xarajat nomi", border: OutlineInputBorder()),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-            controller: miqdor,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                labelText: "Xarajat miqdori", border: OutlineInputBorder()),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              nowDay == null
-                  ? Text("Kun tanlanmagan!")
-                  : Text(
-                      "Xarajat kuni: ${DateFormat('d MMM, yyyy').format(nowDay!)}"),
-              TextButton(
-                  onPressed: () {
-                    openKalendar(context);
-                  },
-                  child: Text("Kunni tanlash"))
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              takeIcon == null
-                  ? Text("Icon tanlanmagan!")
-                  : Row(
-                      children: [Text("Icon: "), Icon(takeIcon)],
-                    ),
-                    TextButton(onPressed: (){openIcons(context);}, child: Text("Icon tanlash"))
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("BEKOR QILISH")),
-              ElevatedButton(
-                  onPressed: () {
-                    submit();
-                  },
-                  child: Text("SAQLASH"))
-            ],
-          )
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom == 0 ? 100 : MediaQuery.of(context).viewInsets.bottom + 10, top: 16, right: 16, left: 16),
+        child: Column(
+          children: [
+            ADABTIVE_TEXT_FILD("Xarajat nomi", nomi, null),
+            SizedBox(
+              height: 10,
+            ),
+            ADABTIVE_TEXT_FILD("Xarajat miqdori", miqdor, TextInputType.number),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                nowDay == null
+                    ? Text("Kun tanlanmagan!")
+                    : Text(
+                        "Xarajat kuni: ${DateFormat('d MMM, yyyy').format(nowDay!)}"),
+                TextButton(
+                    onPressed: () {
+                      openKalendar(context);
+                    },
+                    child: Text("Kunni tanlash"))
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                takeIcon == null
+                    ? Text("Icon tanlanmagan!")
+                    : Row(
+                        children: [Text("Icon: "), Icon(takeIcon)],
+                      ),
+                      TextButton(onPressed: (){openIcons(context);}, child: Text("Icon tanlash"))
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ADABTIVE_BUTTON("BEKOR QILISH", (){Navigator.pop(context);}),
+                ADABTIVE_BUTTON("SAQLASH", submit, filled: true,)
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

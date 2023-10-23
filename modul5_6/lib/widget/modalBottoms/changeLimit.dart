@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modul5_6/widget/adabtive/adabtive_button.dart';
 
 class CHANGELIMIT extends StatefulWidget {
   final Function changeLimit;
@@ -39,36 +40,28 @@ class _CHANGELIMITState extends State<CHANGELIMIT> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          TextField(
-            keyboardType: TextInputType.number,
-            controller: amount,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Yangi Limitni kiriting!",
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text("BEKOR QILISH"),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: MediaQuery.of(context).viewInsets.bottom == 0 ? 200 : MediaQuery.of(context).viewInsets.bottom + 50),
+        child: Column(
+          children: [
+            TextField(
+              keyboardType: TextInputType.number,
+              controller: amount,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Yangi Limitni kiriting!",
               ),
-              ElevatedButton(
-                onPressed: () {
-                  submit(context);
-                },
-                child: Text("SAQLASH"),
-              )
-            ],
-          )
-        ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ADABTIVE_BUTTON("BEKOR QILISH", (){Navigator.pop(context);}),
+                ADABTIVE_BUTTON("SAQLASH", submit, filled: true,)
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

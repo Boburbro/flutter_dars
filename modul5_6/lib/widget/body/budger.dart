@@ -18,7 +18,8 @@ class BUDGET extends StatelessWidget {
 
   void openChangeScreen(BuildContext context) {
     showModalBottomSheet(
-      isDismissible: false,
+        isScrollControlled: true,
+        isDismissible: false,
         context: context,
         builder: (ctx) {
           return CHANGELIMIT(changeLimit, budgetLimit);

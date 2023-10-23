@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter_month_picker/flutter_month_picker.dart';
@@ -79,7 +81,11 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
 
   void addNewExpense(BuildContext context) {
     void addNewExpensesWidget(
-        String title, DateTime date, double amount, IconData icon) {
+      String title,
+      DateTime date,
+      double amount,
+      IconData icon,
+    ) {
       setState(() {
         items.addNewExpenses(title, date, amount, icon);
       });
@@ -87,6 +93,7 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
 
     showModalBottomSheet(
         isDismissible: false,
+        isScrollControlled: true,
         context: context,
         builder: (ctx) {
           return ADDNEWEXPENSE(addNewExpensesWidget);
@@ -105,28 +112,33 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
     });
   }
 
-  Widget _showPortretItems() {
+  Widget _showPortretItems(deviceHigh, deviceWidth) {
     return Column(
       children: [
-        HIGH(openKalendar, nowDay, nextMonth, formerMonth,
-            items.totalItems(nowDay)),
-        SizedBox(
-          height: 10,
+        Container(
+          width: deviceWidth,
+          height: deviceHigh * 0.2,
+          child: HIGH(openKalendar, nowDay, nextMonth, formerMonth,
+              items.totalItems(nowDay)),
         ),
-        BODY(items.itemsByMonth(nowDay), items.totalItems(nowDay), budgetLimit,
-            changeLimit, removeItems)
+        Container(
+          width: deviceWidth,
+          height: deviceHigh * 0.8,
+          child: BODY(items.itemsByMonth(nowDay), items.totalItems(nowDay),
+              budgetLimit, changeLimit, removeItems),
+        ),
       ],
     );
   }
 
-  Widget _showLendscape() {
+  Widget _showLendscapeItems(deviceHigh, deviceWidth) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Ro'yxatni ko'rsatish"),
-            Switch(
+            Switch.adaptive(
               value: _showLend,
               onChanged: (expression) {
                 setState(
@@ -139,35 +151,66 @@ class _HOMEPAGEState extends State<HOMEPAGE> {
           ],
         ),
         _showLend
-            ? BODY(items.itemsByMonth(nowDay), items.totalItems(nowDay),
-                budgetLimit, changeLimit, removeItems)
-            : HIGH(openKalendar, nowDay, nextMonth, formerMonth,
-                items.totalItems(nowDay))
+            ? Container(
+                height: deviceHigh * 0.9,
+                width: deviceWidth,
+                child: BODY(
+                    items.itemsByMonth(nowDay),
+                    items.totalItems(nowDay),
+                    budgetLimit,
+                    changeLimit,
+                    removeItems),
+              )
+            : Container(
+                height: deviceHigh * 0.9,
+                width: deviceWidth,
+                child: HIGH(openKalendar, nowDay, nextMonth, formerMonth,
+                    items.totalItems(nowDay)),
+              )
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text("My Wallet"),
+      centerTitle: true,
+      actions: Platform.isIOS
+          ? [
+              IconButton(
+                onPressed: () {addNewExpense(context);},
+                icon: Icon(Icons.add),
+              ),
+            ]
+          : [],
+    );
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
+    final deviceHigh = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+    final deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My Wallet"),
-        centerTitle: true,
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
-          children: [isLandscape ? _showLendscape() : _showPortretItems()],
+          children: [
+            isLandscape
+                ? _showLendscapeItems(deviceHigh, deviceWidth)
+                : _showPortretItems(deviceHigh, deviceWidth)
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          addNewExpense(context);
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: Platform.isAndroid
+          ? FloatingActionButton(
+              onPressed: () {
+                addNewExpense(context);
+              },
+              child: Icon(Icons.add),
+            )
+          : null,
     );
   }
 }
