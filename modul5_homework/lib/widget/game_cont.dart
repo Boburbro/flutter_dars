@@ -7,30 +7,30 @@ class GAME_CONT extends StatefulWidget {
 }
 
 class _GAME_CONTState extends State<GAME_CONT> {
-  // List<String> _board = [];
-  // String _currentPlayer = 'x';
-  // String winner = "";
+  List<String> _board = [];
+  String _currentPlayer = 'x';
+  String winner = "";
 
-  // @override
-  // void initState() {
-  //   _board = List.filled(9, "");
+  @override
+  void initState() {
+    _board = List.filled(9, "");
 
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
+    // TODO: implement initState
+    super.initState();
+  }
 
-  // void _switchPlayer() {
-  //   _currentPlayer = _currentPlayer == 'x' ? 'o' : 'x';
-  // }
+  void _switchPlayer() {
+    _currentPlayer = _currentPlayer == 'x' ? 'o' : 'x';
+  }
 
-  // void _playMove(int index) {
-  //   if (_board[index] == '') {
-  //     setState(() {
-  //       _board[index] = _currentPlayer;
-  //       _switchPlayer();
-  //     });
-  //   }
-  // }
+  void _playMove(int index) {
+    if (_board[index] == '') {
+      setState(() {
+        _board[index] = _currentPlayer;
+        _switchPlayer();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,25 +49,25 @@ class _GAME_CONTState extends State<GAME_CONT> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              KVADRAT(),
-              KVADRAT(),
-              KVADRAT(),
+              KVADRAT("", "", () {}),
+              KVADRAT("", "", () {}),
+              KVADRAT("", "", () {}),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              KVADRAT(),
-              KVADRAT(),
-              KVADRAT(),
+              KVADRAT("", "", () {}),
+              KVADRAT("", "", () {}),
+              KVADRAT("", "", () {}),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              KVADRAT(_playMove),
-              KVADRAT(_playMove),
-              KVADRAT(_playMove),
+              KVADRAT("", "", () {}),
+              KVADRAT("", "", () {}),
+              KVADRAT("", "", () {}),
             ],
           ),
         ],
