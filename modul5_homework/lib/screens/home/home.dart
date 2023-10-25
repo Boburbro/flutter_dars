@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:modul5_homework/widget/button_play.dart';
-import 'package:modul5_homework/widget/welcome.dart';
+import 'package:modul5_homework/screens/home/widgets/button_play.dart';
+import 'package:modul5_homework/screens/home/widgets/welcome.dart';
 
 class HOMEPAGE extends StatelessWidget {
   void openDialog(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modul5_homework/screens/gamePage.dart';
+import 'package:modul5_homework/screens/gamePage/gamePage.dart';
 
 class BUTTOM_PLAY extends StatelessWidget {
   @override

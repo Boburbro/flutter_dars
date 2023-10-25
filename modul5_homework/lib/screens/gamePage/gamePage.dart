@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:modul5_homework/widget/game_cont.dart';
-import 'package:modul5_homework/widget/gamer.dart';
+import 'package:modul5_homework/screens/gamePage/widget/game_cont.dart';
+import 'package:modul5_homework/screens/gamePage/widget/gamer.dart';
 
 class GAMEPAGE extends StatelessWidget {
   @override
@@ -35,6 +35,8 @@ class GAMEPAGE extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GAMER(Color(0xFF1263FF), "assets/gamer_x.png", "assets/X.png"),
+                IconButton(onPressed: (){
+                }, icon: Icon(Icons.cached_sharp)),
                 GAMER(Color(0xFFEF5F5F), "assets/gamer_y.png", "assets/o_red.png"),
               ],
             ),
