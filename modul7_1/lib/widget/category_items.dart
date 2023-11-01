@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class category_item extends StatelessWidget {
-  const category_item({
+  final String title;
+  final String imgUrl;
+  
+  const category_item(
+    this.title,
+    this.imgUrl,
+    
+    {
     super.key,
   });
 
@@ -14,17 +21,17 @@ class category_item extends StatelessWidget {
           Container(
             width: double.infinity,
             child: Image.asset(
-              "assets/tarvuz.jpg",
+              imgUrl,
               fit: BoxFit.cover,
             ),
           ),
           Container(
             color: Colors.black.withOpacity(0.3),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+           Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Mevalar",
+              title,
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           )

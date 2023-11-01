@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modul7_1/models/category.dart';
 
 
@@ -20,7 +21,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.amber
+        primarySwatch: Colors.amber,
+        fontFamily: GoogleFonts.aBeeZee().fontFamily
       ),
       debugShowCheckedModeBanner: false,
       home: CategoriesScreen(_categories.list),
