@@ -4,6 +4,7 @@ import 'package:modul7_1/models/category.dart';
 
 
 import 'package:modul7_1/screens/categories_screen.dart';
+import 'package:modul7_1/screens/category_meal_screen.dart';
 
 
 
@@ -26,6 +27,9 @@ class App extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: CategoriesScreen(_categories.list),
+      routes: {
+        "/category-meals" :(context) => CategoryMealScreen(),
+      },
     );
   }
 }

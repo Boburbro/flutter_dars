@@ -12,30 +12,38 @@ class category_item extends StatelessWidget {
     super.key,
   });
 
+  void _goTocategoryMealScreen(BuildContext context){
+    // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => CategoryMealScreen(title)));
+    Navigator.of(context).pushNamed('/category-meals', arguments: title);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            child: Image.asset(
-              imgUrl,
-              fit: BoxFit.cover,
+    return InkWell(
+      onTap: () => _goTocategoryMealScreen(context),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Image.asset(
+                imgUrl,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Container(
-            color: Colors.black.withOpacity(0.3),
-          ),
-           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            Container(
+              color: Colors.black.withOpacity(0.3),
             ),
-          )
-        ],
+             Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
