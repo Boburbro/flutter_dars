@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:modul7_1/screens/mealitem.dart';
 
 class CategoryMealScreen extends StatelessWidget {
-  // final String appTitle;
-  // const CategoryMealScreen(this.appTitle, {super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final categoryTitle = ModalRoute.of(context)!.settings.arguments as String;
-
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("$categoryTitle"),),
-      body: Center(child: Text('d')),
+        title: Text(categoryTitle),
+      ),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(15),
+        // itemCount: 5,
+        itemBuilder: (ctx, index) => const MealItem(),
+      ),
     );
   }
 }
