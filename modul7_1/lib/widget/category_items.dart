@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:modul7_1/models/meal.dart';
 
 class category_item extends StatelessWidget {
   final String title;
   final String imgUrl;
+  final List<Meal> _meal;
 
   const category_item(
     this.title,
-    this.imgUrl, {
+    this.imgUrl,
+    this._meal, {
     super.key,
   });
 
   void _goTocategoryMealScreen(BuildContext context) {
     // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => CategoryMealScreen(title)));
-    Navigator.of(context).pushNamed('/category-meals', arguments: title);
+    Navigator.of(context).pushNamed('/category-meals',
+        arguments: {"cTitle": title, "cData": _meal});
   }
 
   @override
@@ -37,7 +41,7 @@ class category_item extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 title,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             )
           ],

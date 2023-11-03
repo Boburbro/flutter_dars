@@ -1,36 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modul7_1/models/category.dart';
-
+import 'package:modul7_1/models/meal.dart';
 
 import 'package:modul7_1/screens/categories_screen.dart';
 import 'package:modul7_1/screens/category_meal_screen.dart';
-
-
 
 void main(List<String> args) {
   runApp(App());
 }
 
 class App extends StatelessWidget {
-  
   final _categories = Categories();
-
-  
+  final _meal = Meals();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.amber,
-        fontFamily: GoogleFonts.aBeeZee().fontFamily
-      ),
+          primarySwatch: Colors.amber,
+          fontFamily: GoogleFonts.aBeeZee().fontFamily),
       debugShowCheckedModeBanner: false,
-      home: CategoriesScreen(_categories.list),
+      home: CategoriesScreen(_categories.list, _meal.item),
       routes: {
-        "/category-meals" :(context) => CategoryMealScreen(),
+        "/category-meals": (context) => CategoryMealScreen(),
       },
-  
     );
   }
 }

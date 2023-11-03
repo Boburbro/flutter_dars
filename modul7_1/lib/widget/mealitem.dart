@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:modul7_1/models/meal.dart';
 
 class MealItem extends StatelessWidget {
-  const MealItem({
+  final Meal _meal;
+  const MealItem(
+    this._meal, {
     super.key,
   });
 
@@ -16,7 +18,7 @@ class MealItem extends StatelessWidget {
             Stack(
               children: [
                 Image.asset(
-                  "assets/fast.jpg",
+                  _meal.imgUrl,
                   fit: BoxFit.cover,
                 ),
                 Positioned(
@@ -27,9 +29,9 @@ class MealItem extends StatelessWidget {
                     width: 200,
                     padding: const EdgeInsets.all(10),
                     color: Colors.black.withOpacity(0.5),
-                    child: const Text(
-                      "Burger",
-                      style: TextStyle(
+                    child: Text(
+                      _meal.title,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                       ),
@@ -50,8 +52,8 @@ class MealItem extends StatelessWidget {
                         color: Colors.black54,
                         size: 20,
                       )),
-                  const Text("\$12"),
-                  const Text("15 minut"),
+                  Text("\$${_meal.price}"),
+                  Text("${_meal.preparingTime} minut"),
                 ],
               ),
             )
