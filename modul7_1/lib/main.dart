@@ -22,8 +22,10 @@ class App extends StatelessWidget {
           primarySwatch: Colors.amber,
           fontFamily: GoogleFonts.aBeeZee().fontFamily),
       debugShowCheckedModeBanner: false,
-      home: CategoriesScreen(_categories.list, _meal.item),
+      // home: ,
+      initialRoute: '/',
       routes: {
+        "/": (context) => CategoriesScreen(_categories.list, _meal.item),
         "/category-meals": (context) => CategoryMealScreen(),
         MealDetails.routeName: (context) => MealDetails(0),
       },
