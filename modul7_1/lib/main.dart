@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modul7_1/models/category.dart';
 import 'package:modul7_1/models/meal.dart';
+import 'package:modul7_1/screens/botton_navigator_bar.dart';
 
 import 'package:modul7_1/screens/category_meal_screen.dart';
 import 'package:modul7_1/screens/meal_details.dart';
@@ -26,8 +27,7 @@ class App extends StatelessWidget {
       // home: ,
       initialRoute: '/',
       routes: {
-        "/": (context) => TabScreen(_categories.list, _meal.item),
-        
+        "/": (context) => BottanNavigatoBarScreen(_categories.list, _meal.item),
         TabScreen.routeName: (context) =>
             TabScreen(_categories.list, _meal.item),
         CategoryMealScreen.routeName: (context) => CategoryMealScreen(),

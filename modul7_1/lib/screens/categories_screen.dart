@@ -12,23 +12,31 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      padding: const EdgeInsets.all(10),
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20),
-      children: _categories.map(
-        (category) {
-          final meals = _meals
-              .where(
-                (e) => e.categoryId == category.id,
-              )
-              .toList();
-          return category_item(category.title, category.imgurl, meals);
-        },
-      ).toList(),
-    );
+    // ignore: prefer_is_empty
+    return _meals.length > 0
+        ? GridView(
+            padding: const EdgeInsets.all(10),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+            children: _categories.map(
+              (category) {
+                final meals = _meals
+                    .where(
+                      (e) => e.categoryId == category.id,
+                    )
+                    .toList();
+                return category_item(category.title, category.imgurl, meals);
+              },
+            ).toList(),
+          )
+        : const Center(
+            child: Text(
+              "Hozircha kategoryalar mavjud emas",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          );
   }
 }
