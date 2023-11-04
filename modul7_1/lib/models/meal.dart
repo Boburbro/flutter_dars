@@ -32,8 +32,8 @@ class Meals {
         title: "Tarvuz",
         imgUrl: "assets/tarvuz.jpg",
         imgUrls: [
-          "https://images.pexels.com/photos/1510392/pexels-photo-1510392.jpeg?auto=compress&cs=tinysrgb&w=1600",
           "https://images.pexels.com/photos/2966150/pexels-photo-2966150.jpeg?auto=compress&cs=tinysrgb&w=1600",
+          "https://images.pexels.com/photos/1510392/pexels-photo-1510392.jpeg?auto=compress&cs=tinysrgb&w=1600",
           "https://images.pexels.com/photos/1402659/pexels-photo-1402659.jpeg?auto=compress&cs=tinysrgb&w=1600"
         ],
         ingredients: ["tabiy", "bog'"],

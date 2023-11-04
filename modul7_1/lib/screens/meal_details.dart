@@ -1,9 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:modul7_1/models/meal.dart';
+import 'package:modul7_1/widget/dotForItem.dart';
 
 class MealDetails extends StatefulWidget {
-  const MealDetails({super.key});
+   int activeImgIndex = 0;
+  MealDetails(
+    this.activeImgIndex,
+    {super.key});
 
   static const routeName = '/meal-details';
 
@@ -16,7 +20,7 @@ class _MealDetailsState extends State<MealDetails> {
   Widget build(BuildContext context) {
     // ignore: unused_local_variable, no_leading_underscores_for_local_identifiers
     final _mealData = ModalRoute.of(context)!.settings.arguments as Meal;
-    int activeImgIndex = 0;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +33,7 @@ class _MealDetailsState extends State<MealDetails> {
             CarouselSlider(
               items: _mealData.imgUrls.map(
                 (img) {
-                  return Container(
+                  return SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Image(
                       image: NetworkImage(img),
@@ -39,33 +43,17 @@ class _MealDetailsState extends State<MealDetails> {
                 },
               ).toList(),
               options: CarouselOptions(
-                initialPage: activeImgIndex,
+                initialPage: 0,
                 onPageChanged: (index, reason) {
                   setState(() {
-                    activeImgIndex = index;
+                    widget.activeImgIndex = index;
                   });
                 },
                 height: 300,
                 viewportFraction: 1,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _mealData.imgUrls.map(
-                (img) {
-                  final imageIndex = _mealData.imgUrls.indexOf(img);
-                  return Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                        color: activeImgIndex == imageIndex
-                            ? Colors.black
-                            : Colors.grey,
-                        shape: BoxShape.circle),
-                  );
-                },
-              ).toList(),
-            ),
+            DotForItem(_mealData.imgUrls, widget.activeImgIndex),
             Text(
               "\$${_mealData.price}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),

@@ -25,7 +25,7 @@ class App extends StatelessWidget {
       home: CategoriesScreen(_categories.list, _meal.item),
       routes: {
         "/category-meals": (context) => CategoryMealScreen(),
-        MealDetails.routeName: (context) => const MealDetails(),
+        MealDetails.routeName: (context) => MealDetails(0),
       },
     );
   }
