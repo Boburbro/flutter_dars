@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modul7_1/models/meal.dart';
 import 'package:modul7_1/widget/dotForItem.dart';
 
+// ignore: must_be_immutable
 class MealDetails extends StatefulWidget {
    int activeImgIndex = 0;
   MealDetails(

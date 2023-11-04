@@ -3,9 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:modul7_1/models/category.dart';
 import 'package:modul7_1/models/meal.dart';
 
-import 'package:modul7_1/screens/categories_screen.dart';
 import 'package:modul7_1/screens/category_meal_screen.dart';
 import 'package:modul7_1/screens/meal_details.dart';
+import 'package:modul7_1/screens/notfoundscreen.dart';
+import 'package:modul7_1/screens/tab_screen.dart';
 
 void main(List<String> args) {
   runApp(App());
@@ -25,9 +26,18 @@ class App extends StatelessWidget {
       // home: ,
       initialRoute: '/',
       routes: {
-        "/": (context) => CategoriesScreen(_categories.list, _meal.item),
-        "/category-meals": (context) => CategoryMealScreen(),
+        "/": (context) => TabScreen(_categories.list, _meal.item),
+        
+        TabScreen.routeName: (context) =>
+            TabScreen(_categories.list, _meal.item),
+        CategoryMealScreen.routeName: (context) => CategoryMealScreen(),
         MealDetails.routeName: (context) => MealDetails(0),
+      },
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => const NotFoundScreen());
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => const NotFoundScreen());
       },
     );
   }

@@ -27,6 +27,7 @@ class category_item extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Stack(
           children: [
+            // ignore: sized_box_for_whitespace
             Container(
               width: double.infinity,
               child: Image.asset(
