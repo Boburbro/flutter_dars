@@ -8,7 +8,6 @@ class Meal {
   final int preparingTime;
   final double price;
   final String categoryId;
-  bool isLike;
 
   Meal({
     required this.mId,
@@ -20,7 +19,6 @@ class Meal {
     required this.preparingTime,
     required this.price,
     required this.categoryId,
-    this.isLike = false,
   });
 }
 
@@ -195,7 +193,23 @@ class Meals {
         categoryId: 'r4'),
   ];
 
+  // ignore: prefer_final_fields
+  List<Meal> _liked = [];
+
   List<Meal> get item {
     return _items;
+  }
+
+  List<Meal> get liked {
+    return _liked;
+  }
+
+  void addToLiked(mId) {
+    final mealIndex = _liked.indexWhere((meal) => meal.mId == mId);
+    if (mealIndex < 0) {
+      _liked.add(_items.firstWhere((meal) => meal.mId == mId));
+    } else {
+      _liked.removeWhere((meal) => meal.mId == mId);
+    }
   }
 }

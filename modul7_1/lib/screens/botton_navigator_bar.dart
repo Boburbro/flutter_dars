@@ -9,7 +9,12 @@ class BottanNavigatoBarScreen extends StatefulWidget {
   final List<Category> _categories;
   // ignore: unused_field
   final List<Meal> _meals;
-  const BottanNavigatoBarScreen(this._categories, this._meals, {super.key});
+  final List<Meal> _liked;
+  final Function changeLiked;
+  final Function isLiked;
+  const BottanNavigatoBarScreen(this._categories, this._meals, this._liked,
+      this.changeLiked, this.isLiked,
+      {super.key});
   @override
   State<BottanNavigatoBarScreen> createState() =>
       _BottanNavigatoBarScreenState();
@@ -27,7 +32,11 @@ class _BottanNavigatoBarScreenState extends State<BottanNavigatoBarScreen> {
         "title": "Ovaqtlar menyusi",
       },
       {
-        "page": const FavoritesScreen(),
+        "page": FavoritesScreen(
+          widget._liked,
+          widget.changeLiked,
+          widget.isLiked
+        ),
         "title": "Sevimli ovqatlar",
       },
       //

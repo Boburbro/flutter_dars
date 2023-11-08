@@ -11,9 +11,12 @@ class TabScreen extends StatelessWidget {
   final List<Category> _categories;
   // ignore: unused_field
   final List<Meal> _meals;
+  final List<Meal> _liked;
+  final Function changeLiked;
+  final Function isLiked;
 
   // ignore: use_key_in_widget_constructors
-  const TabScreen(this._categories, this._meals);
+  const TabScreen(this._categories, this._meals, this._liked, this.changeLiked, this.isLiked);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class TabScreen extends StatelessWidget {
         ),
         body: TabBarView(children: [
           CategoriesScreen(_categories, _meals),
-          const FavoritesScreen(),
+          FavoritesScreen(_liked, changeLiked, isLiked),
         ]),
       ),
     );

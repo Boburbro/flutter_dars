@@ -1,10 +1,18 @@
+// ignore: duplicate_ignore
+// ignore_for_file: use_key_in_widget_constructors, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:modul7_1/models/meal.dart';
 import 'package:modul7_1/widget/mealitem.dart';
 
 // ignore: use_key_in_widget_constructors
 class CategoryMealScreen extends StatelessWidget {
+  final Function changeLike;
+  final Function isLiked;
   static const routeName = "/category-meals";
+
+  // ignore: prefer_const_constructors_in_immutables
+  CategoryMealScreen(this.changeLike, this.isLiked);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +31,7 @@ class CategoryMealScreen extends StatelessWidget {
           ? ListView.builder(
               padding: const EdgeInsets.all(15),
               itemCount: _meals.length,
-              itemBuilder: (ctx, index) => MealItem(_meals[index]),
+              itemBuilder: (ctx, index) => MealItem(_meals[index], changeLike, isLiked),
             )
           : const Center(
               child: Text("Hozircha bu katalogda maxsulotlar yo'q"),

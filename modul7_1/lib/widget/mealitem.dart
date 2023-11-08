@@ -4,8 +4,13 @@ import 'package:modul7_1/screens/meal_details.dart';
 
 class MealItem extends StatelessWidget {
   final Meal _meal;
+  final Function changeLike;
+  final Function isLiked;
   const MealItem(
-    this._meal, {
+    this._meal,
+    this.changeLike,
+    this.isLiked,
+     {
     super.key,
   });
 
@@ -61,9 +66,14 @@ class MealItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_outline,
+                        onPressed: () {
+                          changeLike(_meal.mId);
+                          // ignore: unused_local_variable
+                        },
+                        icon: Icon(
+                          isLiked(_meal.mId)
+                              ? Icons.favorite
+                              : Icons.favorite_outline,
                           color: Colors.black54,
                           size: 20,
                         )),

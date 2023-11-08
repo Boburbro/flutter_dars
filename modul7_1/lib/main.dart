@@ -13,9 +13,25 @@ void main(List<String> args) {
   runApp(App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   final _categories = Categories();
+
   final _meal = Meals();
+
+  void changeLike(String _id) {
+    setState(() {
+      _meal.addToLiked(_id);
+    });
+  }
+
+  bool isLiked(String mId) {
+    return _meal.liked.any((meal) => meal.mId == mId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +43,11 @@ class App extends StatelessWidget {
       // home: ,
       initialRoute: '/',
       routes: {
-        "/": (context) => BottanNavigatoBarScreen(_categories.list, _meal.item),
+        "/": (context) => BottanNavigatoBarScreen(_categories.list, _meal.item, _meal.liked, changeLike, isLiked),
         TabScreen.routeName: (context) =>
-            TabScreen(_categories.list, _meal.item),
-        CategoryMealScreen.routeName: (context) => CategoryMealScreen(),
+            TabScreen(_categories.list, _meal.item, _meal.liked, changeLike, isLiked),
+        CategoryMealScreen.routeName: (context) =>
+            CategoryMealScreen(changeLike, isLiked),
         MealDetails.routeName: (context) => MealDetails(0),
       },
       onGenerateRoute: (settings) {
