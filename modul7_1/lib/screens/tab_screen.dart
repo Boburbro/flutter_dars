@@ -4,6 +4,7 @@ import 'package:modul7_1/models/category.dart';
 import 'package:modul7_1/models/meal.dart';
 import 'package:modul7_1/screens/categories_screen.dart';
 import 'package:modul7_1/screens/favorites_screen.dart';
+import 'package:modul7_1/widget/main_drower.dart';
 
 class TabScreen extends StatelessWidget {
   static const routeName = "/2";
@@ -16,7 +17,8 @@ class TabScreen extends StatelessWidget {
   final Function isLiked;
 
   // ignore: use_key_in_widget_constructors
-  const TabScreen(this._categories, this._meals, this._liked, this.changeLiked, this.isLiked);
+  const TabScreen(this._categories, this._meals, this._liked, this.changeLiked,
+      this.isLiked);
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class TabScreen extends StatelessWidget {
             )
           ]),
         ),
+        drawer: const MainDrower(),
         body: TabBarView(children: [
           CategoriesScreen(_categories, _meals),
           FavoritesScreen(_liked, changeLiked, isLiked),

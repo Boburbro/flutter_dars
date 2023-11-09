@@ -3,6 +3,7 @@ import 'package:modul7_1/models/category.dart';
 import 'package:modul7_1/models/meal.dart';
 import 'package:modul7_1/screens/categories_screen.dart';
 import 'package:modul7_1/screens/favorites_screen.dart';
+import 'package:modul7_1/widget/main_drower.dart';
 
 class BottanNavigatoBarScreen extends StatefulWidget {
   // ignore: unused_field
@@ -32,11 +33,8 @@ class _BottanNavigatoBarScreenState extends State<BottanNavigatoBarScreen> {
         "title": "Ovaqtlar menyusi",
       },
       {
-        "page": FavoritesScreen(
-          widget._liked,
-          widget.changeLiked,
-          widget.isLiked
-        ),
+        "page":
+            FavoritesScreen(widget._liked, widget.changeLiked, widget.isLiked),
         "title": "Sevimli ovqatlar",
       },
       //
@@ -59,6 +57,7 @@ class _BottanNavigatoBarScreenState extends State<BottanNavigatoBarScreen> {
         centerTitle: true,
         title: Text(_list[_tapIndex]["title"]),
       ),
+      drawer: const MainDrower(),
       body: _list[_tapIndex]["page"],
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).primaryColor,

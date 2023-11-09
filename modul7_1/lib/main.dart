@@ -5,6 +5,7 @@ import 'package:modul7_1/models/meal.dart';
 import 'package:modul7_1/screens/botton_navigator_bar.dart';
 
 import 'package:modul7_1/screens/category_meal_screen.dart';
+import 'package:modul7_1/screens/items.dart';
 import 'package:modul7_1/screens/meal_details.dart';
 import 'package:modul7_1/screens/notfoundscreen.dart';
 import 'package:modul7_1/screens/tab_screen.dart';
@@ -43,12 +44,14 @@ class _AppState extends State<App> {
       // home: ,
       initialRoute: '/',
       routes: {
-        "/": (context) => BottanNavigatoBarScreen(_categories.list, _meal.item, _meal.liked, changeLike, isLiked),
-        TabScreen.routeName: (context) =>
-            TabScreen(_categories.list, _meal.item, _meal.liked, changeLike, isLiked),
+        "/": (context) => BottanNavigatoBarScreen(
+            _categories.list, _meal.item, _meal.liked, changeLike, isLiked),
+        TabScreen.routeName: (context) => TabScreen(
+            _categories.list, _meal.item, _meal.liked, changeLike, isLiked),
         CategoryMealScreen.routeName: (context) =>
             CategoryMealScreen(changeLike, isLiked),
         MealDetails.routeName: (context) => MealDetails(0),
+        Items.routeName: (context) => const Items(),
       },
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => const NotFoundScreen());
