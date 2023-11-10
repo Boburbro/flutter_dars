@@ -34,7 +34,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return widget._liked.length > 0
+    // ignore: prefer_is_empty
+    return  widget._liked.length > 0
         ? ListView.builder(
             padding: const EdgeInsets.all(15),
             itemCount: widget._liked.length,

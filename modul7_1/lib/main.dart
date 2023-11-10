@@ -51,7 +51,7 @@ class _AppState extends State<App> {
         CategoryMealScreen.routeName: (context) =>
             CategoryMealScreen(changeLike, isLiked),
         MealDetails.routeName: (context) => MealDetails(0),
-        Items.routeName: (context) => const Items(),
+        Items.routeName: (context) => Items(),
       },
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => const NotFoundScreen());

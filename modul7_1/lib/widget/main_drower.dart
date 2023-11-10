@@ -26,12 +26,12 @@ class MainDrower extends StatelessWidget {
             centerTitle: true,
           ),
           _buildMenuItem(Icons.home, "Bosh sahifa",
-              () => Navigator.of(context).pushNamed("/")),
+              () => Navigator.of(context).pushReplacementNamed("/")),
           const Divider(
             height: 1,
           ),
           _buildMenuItem(Icons.category, "Maxsulotlar",
-              () => Navigator.of(context).pushNamed(Items.routeName)),
+              () => Navigator.of(context).pushReplacementNamed(Items.routeName)),
         ],
       ),
     );
