@@ -14,8 +14,15 @@ class AddNewItem extends StatefulWidget {
 
 class _AddNewItemState extends State<AddNewItem> {
   late String _id;
-  List<String> _imgUrls = [];
-  TextEditingController _mainimgUrlController = TextEditingController();
+  final _itemNameController = TextEditingController();
+  final _itemDescriptionController = TextEditingController();
+  final _itemIngredientasController = TextEditingController();
+  final _itemPriceController = TextEditingController();
+  final _itemPreparingTimeController = TextEditingController();
+  final _mainImgUrlController = TextEditingController();
+  final _firstImgUrlController = TextEditingController();
+  final _secondImgUrlController = TextEditingController();
+  final _thirdImgUrlController = TextEditingController();
 
   @override
   void initState() {
@@ -29,6 +36,7 @@ class _AddNewItemState extends State<AddNewItem> {
       appBar: AppBar(
         title: const Text("Yangi ovqat"),
         centerTitle: true,
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.save))],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -40,6 +48,7 @@ class _AddNewItemState extends State<AddNewItem> {
                   value: _id,
                   items: widget._categories
                       .map((e) => DropdownMenuItem(
+                            // ignore: sort_child_properties_last
                             child: Text(e.title),
                             value: e.id,
                           ))
@@ -49,27 +58,39 @@ class _AddNewItemState extends State<AddNewItem> {
                       _id = value as String;
                     });
                   }),
-              const TextField(
-                decoration: InputDecoration(labelText: "Ovqat nomi"),
+              TextField(
+                controller: _itemNameController,
+                decoration: const InputDecoration(labelText: "Ovqat nomi"),
               ),
-              const TextField(
-                decoration: InputDecoration(labelText: "Ovqat tarifi"),
+              TextField(
+                controller: _itemDescriptionController,
+                decoration: const InputDecoration(labelText: "Ovqat tarifi"),
                 maxLines: 5,
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _itemIngredientasController,
+                decoration: const InputDecoration(
                     labelText: "Ovqat tarkibi (masalan: go'sht, pomidor ...)"),
               ),
-              const TextField(
-                decoration: InputDecoration(labelText: "Ovqat narxi (\$)"),
+              TextField(
+                controller: _itemPriceController,
+                decoration:
+                    const InputDecoration(labelText: "Ovqat narxi (\$)"),
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                controller: _itemPreparingTimeController,
+                decoration: const InputDecoration(
                     labelText: "Ovqat tayyorlanish vaqti (minut)"),
               ),
               const SizedBox(height: 10),
-              CustomImgUrl(_imgUrls.length > 0 ? _imgUrls[0] : '',
-                  'Asosiy rasimni urlini kiriting', _mainimgUrlController)
+              // ignore: prefer_is_empty
+              CustomImgUrl('Asosiy rasimni kiriting', _mainImgUrlController),
+              const SizedBox(height: 10),
+              CustomImgUrl('1-rasimni kiriting', _firstImgUrlController),
+              const SizedBox(height: 10),
+              CustomImgUrl('2-rasimni kiriting', _secondImgUrlController),
+              const SizedBox(height: 10),
+              CustomImgUrl('3-rasimni kiriting', _thirdImgUrlController),
             ],
           ),
         ),
