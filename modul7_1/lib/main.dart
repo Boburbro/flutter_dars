@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modul7_1/models/category.dart';
 import 'package:modul7_1/models/meal.dart';
+import 'package:modul7_1/screens/add_new_item.dart';
 import 'package:modul7_1/screens/botton_navigator_bar.dart';
 
 import 'package:modul7_1/screens/category_meal_screen.dart';
@@ -52,6 +53,7 @@ class _AppState extends State<App> {
             CategoryMealScreen(changeLike, isLiked),
         MealDetails.routeName: (context) => MealDetails(0),
         Items.routeName: (context) => Items(),
+        AddNewItem.routeName: (context) => AddNewItem(_categories.list),
       },
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => const NotFoundScreen());

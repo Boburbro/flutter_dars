@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:modul7_1/models/meal.dart';
+import 'package:modul7_1/screens/add_new_item.dart';
 import 'package:modul7_1/widget/main_drower.dart';
 
 // ignore: must_be_immutable
@@ -11,19 +12,30 @@ class Items extends StatelessWidget {
 
   static const routeName = '/items';
 
+  void _goToAddNewItemScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(AddNewItem.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Items"),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                _goToAddNewItemScreen(context);
+              },
+              icon: const Icon(Icons.add))
+        ],
       ),
       drawer: const MainDrower(),
       body: ListView.builder(
           itemCount: _items.length,
           itemBuilder: (ctx, index) {
             return Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Card(
                 child: ListTile(
                   leading: CircleAvatar(
