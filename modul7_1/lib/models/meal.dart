@@ -212,4 +212,12 @@ class Meals {
       _liked.removeWhere((meal) => meal.mId == mId);
     }
   }
+
+  void addNewMeal(Meal meal) {
+    _items.add(meal);
+  }
+
+  void removeItem(String mId) {
+    _items.removeWhere((element) => element.mId == mId);
+  }
 }

@@ -9,8 +9,7 @@ class MealItem extends StatelessWidget {
   const MealItem(
     this._meal,
     this.changeLike,
-    this.isLiked,
-     {
+    this.isLiked, {
     super.key,
   });
 
@@ -21,6 +20,7 @@ class MealItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(_meal.imgUrl);
     return GestureDetector(
       onTap: () {
         _goToMealDetails(context);
@@ -34,13 +34,17 @@ class MealItem extends StatelessWidget {
                 children: [
                   // ignore: sized_box_for_whitespace
                   Container(
-                    width: double.infinity,
-                    height: 200,
-                    child: Image.asset(
-                      _meal.imgUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      width: double.infinity,
+                      height: 200,
+                      child: _meal.imgUrl.startsWith("assets/")
+                          ? Image.asset(
+                              _meal.imgUrl,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.network(
+                              _meal.imgUrl,
+                              fit: BoxFit.cover,
+                            )),
                   Positioned(
                     bottom: 0,
                     right: 0,

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:modul7_1/models/category.dart';
+import 'package:modul7_1/models/meal.dart';
 import 'package:modul7_1/widget/custom_img_input.dart';
 
 class AddNewItem extends StatefulWidget {
   final List<Category> _categories;
+  final Function _addNewMeal;
 
-  AddNewItem(this._categories, {super.key});
+  AddNewItem(this._categories, this._addNewMeal, {super.key});
   static const routeName = "add-new-item";
 
   @override
@@ -30,13 +32,58 @@ class _AddNewItemState extends State<AddNewItem> {
     _id = widget._categories[0].id;
   }
 
+  void _save() {
+    final title = _itemNameController.text;
+    final des = _itemDescriptionController.text;
+    final ingred = _itemIngredientasController.text;
+    final price = _itemPriceController.text;
+    final prepar = _itemPreparingTimeController.text;
+    final mainImg = _mainImgUrlController.text;
+    final firstImg = _firstImgUrlController.text;
+    final secondImg = _secondImgUrlController.text;
+    final thirdImg = _thirdImgUrlController.text;
+
+    if (title.isEmpty ||
+        des.isEmpty ||
+        ingred.isEmpty ||
+        price.isEmpty ||
+        prepar.isEmpty ||
+        mainImg.isEmpty ||
+        firstImg.isEmpty ||
+        secondImg.isEmpty ||
+        thirdImg.isEmpty) {
+      return;
+    } else {
+      print("object 3");
+      List<String> imgUrls = [firstImg, secondImg, thirdImg];
+      List<String> ingredList = ingred.split(", ");
+      widget._addNewMeal(Meal(
+          mId: UniqueKey().toString(),
+          title: title,
+          imgUrl: mainImg,
+          imgUrls: imgUrls,
+          ingredients: ingredList,
+          description: des,
+          preparingTime: int.parse(prepar),
+          price: double.parse(price),
+          categoryId: _id));
+      Navigator.of(context).pop(true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Yangi ovqat"),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.save))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                _save();
+              },
+              icon: const Icon(Icons.save))
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -74,11 +121,13 @@ class _AddNewItemState extends State<AddNewItem> {
               ),
               TextField(
                 controller: _itemPriceController,
+                keyboardType: TextInputType.number,
                 decoration:
                     const InputDecoration(labelText: "Ovqat narxi (\$)"),
               ),
               TextField(
                 controller: _itemPreparingTimeController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                     labelText: "Ovqat tayyorlanish vaqti (minut)"),
               ),

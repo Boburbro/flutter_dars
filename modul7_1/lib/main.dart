@@ -35,6 +35,14 @@ class _AppState extends State<App> {
     return _meal.liked.any((meal) => meal.mId == mId);
   }
 
+  void _addNewMeal(Meal meal) {
+    _meal.addNewMeal(meal);
+  }
+
+  void _removeItem(String mId) {
+    _meal.removeItem(mId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,8 +60,9 @@ class _AppState extends State<App> {
         CategoryMealScreen.routeName: (context) =>
             CategoryMealScreen(changeLike, isLiked),
         MealDetails.routeName: (context) => MealDetails(0),
-        Items.routeName: (context) => Items(),
-        AddNewItem.routeName: (context) => AddNewItem(_categories.list),
+        Items.routeName: (context) => Items(_meal.item, _removeItem),
+        AddNewItem.routeName: (context) =>
+            AddNewItem(_categories.list, _addNewMeal),
       },
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => const NotFoundScreen());

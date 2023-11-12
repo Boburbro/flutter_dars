@@ -21,6 +21,7 @@ class category_item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(imgUrl);
     return InkWell(
       onTap: () => _goTocategoryMealScreen(context),
       child: ClipRRect(
@@ -30,10 +31,15 @@ class category_item extends StatelessWidget {
             // ignore: sized_box_for_whitespace
             Container(
               width: double.infinity,
-              child: Image.asset(
-                imgUrl,
-                fit: BoxFit.cover,
-              ),
+              child: imgUrl.startsWith("assets/")
+                  ? Image.asset(
+                      imgUrl,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.network(
+                      imgUrl,
+                      fit: BoxFit.cover,
+                    ),
             ),
             Container(
               color: Colors.black.withOpacity(0.3),
