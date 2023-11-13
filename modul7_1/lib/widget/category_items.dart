@@ -21,7 +21,6 @@ class category_item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(imgUrl);
     return InkWell(
       onTap: () => _goTocategoryMealScreen(context),
       child: ClipRRect(

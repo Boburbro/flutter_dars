@@ -20,7 +20,6 @@ class MealItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_meal.imgUrl);
     return GestureDetector(
       onTap: () {
         _goToMealDetails(context);
