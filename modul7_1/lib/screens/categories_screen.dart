@@ -8,7 +8,7 @@ class CategoriesScreen extends StatelessWidget {
   final List<Meal> _meals;
 
   // ignore: use_key_in_widget_constructors
-  const CategoriesScreen(this._categories, this._meals);
+  const   CategoriesScreen(this._categories, this._meals);
 
   @override
   Widget build(BuildContext context) {
