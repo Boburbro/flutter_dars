@@ -3,6 +3,7 @@ import 'package:modul7_2/model/category.dart';
 import 'package:modul7_2/model/meal.dart';
 import 'package:modul7_2/screens/home/categories_screen.dart';
 import 'package:modul7_2/screens/home/favorite_screen.dart';
+import 'package:modul7_2/widgets/drawerMenu.dart';
 // import 'package:modul7_2/widgets/categpry_build.dart';
 
 class Home extends StatefulWidget {
@@ -12,8 +13,8 @@ class Home extends StatefulWidget {
   final List<Meal> _likedMeals;
   final Function changeLiked, isLiked;
 
-  Home(this._categoryitems, this._meals, this._likedMeals, this.changeLiked,
-      this.isLiked,
+  const Home(this._categoryitems, this._meals, this._likedMeals,
+      this.changeLiked, this.isLiked,
       {super.key});
 
   static const routeName = "/";
@@ -57,6 +58,7 @@ class _HomeState extends State<Home> {
         title: Text(_list[_screenIndex]['title']),
         centerTitle: true,
       ),
+      drawer: DrawerMenu(),
       body: _list[_screenIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _screenIndex,

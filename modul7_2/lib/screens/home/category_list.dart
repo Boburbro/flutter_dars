@@ -6,7 +6,7 @@ class CategoryCard extends StatelessWidget {
   final Function changeLiked, isLiked;
   const CategoryCard(this.changeLiked,this.isLiked, {super.key});
 
-  static const routeName = "catgory-list";
+  static const routeName = "/catgory-list";
 
   @override
   Widget build(BuildContext context) {

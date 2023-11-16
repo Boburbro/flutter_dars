@@ -210,4 +210,8 @@ class Meals {
       _liked.removeWhere((element) => element.mId == mId);
     }
   }
+
+  void removeItem(String mId) {
+    _items.removeWhere((element) => element.mId == mId);
+  }
 }
