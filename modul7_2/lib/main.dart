@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modul7_2/model/category.dart';
 import 'package:modul7_2/model/meal.dart';
+import 'package:modul7_2/screens/home/add_new_item.dart';
 import 'package:modul7_2/screens/home/all_items.dart';
 import 'package:modul7_2/screens/home/category_list.dart';
 import 'package:modul7_2/screens/home/home.dart';
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
         CategoryCard.routeName: (context) => CategoryCard(changeLiked, isLiked),
         MealDataScreen.routeName: (context) => MealDataScreen(),
         AllItems.routeName: (context) => AllItems(_meals.items, removeItem),
+        AddNewItem.routeName:(context) => AddNewItem(_categories.item),
       },
     );
   }

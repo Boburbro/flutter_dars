@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modul7_2/model/meal.dart';
+import 'package:modul7_2/screens/home/add_new_item.dart';
 import 'package:modul7_2/widgets/drawerMenu.dart';
 
 class AllItems extends StatefulWidget {
@@ -24,6 +25,14 @@ class _AllItemsState extends State<AllItems> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("All Items"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AddNewItem.routeName);
+              },
+              icon: const Icon(Icons.add))
+        ],
       ),
       body: ListView.builder(
           itemCount: widget._meals.length,
