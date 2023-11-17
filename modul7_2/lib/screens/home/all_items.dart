@@ -29,7 +29,13 @@ class _AllItemsState extends State<AllItems> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(AddNewItem.routeName);
+                Navigator.of(context)
+                    .pushNamed(AddNewItem.routeName)
+                    .then((value) {
+                  if (value == true) {
+                    setState(() {});
+                  }
+                });
               },
               icon: const Icon(Icons.add))
         ],

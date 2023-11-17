@@ -38,6 +38,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _addNewMeal(Meal _meal) {
+    setState(() {
+      _meals.addNewMeal(_meal);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -57,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         CategoryCard.routeName: (context) => CategoryCard(changeLiked, isLiked),
         MealDataScreen.routeName: (context) => MealDataScreen(),
         AllItems.routeName: (context) => AllItems(_meals.items, removeItem),
-        AddNewItem.routeName:(context) => AddNewItem(_categories.item),
+        AddNewItem.routeName: (context) => AddNewItem(_categories.item, _addNewMeal),
       },
     );
   }

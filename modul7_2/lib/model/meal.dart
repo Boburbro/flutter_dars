@@ -214,4 +214,8 @@ class Meals {
   void removeItem(String mId) {
     _items.removeWhere((element) => element.mId == mId);
   }
+
+  void addNewMeal(Meal _meal) {
+    _items.add(_meal);
+  }
 }
