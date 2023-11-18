@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modul7_homework/models/movies.dart';
 import 'package:modul7_homework/screens/navigatorScreen.dart';
 
 void main(List<String> args) {
@@ -14,16 +15,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _muvies = Movies();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: GoogleFonts.lato().fontFamily
-      ),
+      theme: ThemeData(fontFamily: GoogleFonts.lato().fontFamily),
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       routes: {
-        NavigatorScreen.routeName: (context) => const NavigatorScreen(),
+        NavigatorScreen.routeName: (context) =>  NavigatorScreen(_muvies.list),
       },
     );
   }

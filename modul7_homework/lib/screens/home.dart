@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:modul7_homework/models/movies.dart';
 import 'package:modul7_homework/widgets/trends.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  final List<Movie> _movies;
+  const Home(this._movies, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,10 @@ class Home extends StatelessWidget {
                 const SizedBox(height: 24),
                 CarouselSlider(
                   items: [
-                    Trends(),
-                    Trends(),
-                    Trends(),
+                    Trends(_movies[0].imgUrl, _movies[0].title),
+                    Trends(_movies[1].imgUrl, _movies[1].title),
+                    Trends(_movies[2].imgUrl, _movies[2].title),
+                    Trends(_movies[3].imgUrl, _movies[3].title),
                   ],
                   options: CarouselOptions(
                       height: 336,
@@ -38,15 +41,23 @@ class Home extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 36),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Eng mashxur",
                   style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24),
                 engMashhur(),
+                Text(
+                  """
+
+Temir odam Marvel Studios tomonidan ishlab chiqarilgan va Paramount Pictures tomonidan tarqatilgan, Marvel Comicsning superqahramoniga asoslangan, 2008-yilgi Amerikaning fantastik janridagi filmi. Marvel Kinokoinoti (MKK) ning birinchi filmi. Filmni Jon Favreau boshqargan. Mark Fergus va Hawk Ostby, shuningdek, Art Marcum va Matt Holloway yozuvchi guruhlari tomonidan ssenariysi bilan ijro etilgan. Terrence Xovard, Jeff Bridges, Shau Toub va Gviney Paltrow bilan birga Toni Stark/Temir odam rolidagi Robert Downey Jr. film voqealariga koʻra, milliarder Stark hayoti xavf ostida boʻlgan hodisadan keyin kuchli ekzoskelet quradi va texnologik jihatdan rivojlangan super qahramon Temir odamga aylanadi. 
+
+""",
+                  style: TextStyle(color: Colors.white),
+                )
               ],
             ),
           ],

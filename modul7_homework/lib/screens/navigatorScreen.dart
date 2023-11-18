@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:modul7_homework/models/movies.dart';
 import 'package:modul7_homework/screens/categories.dart';
 import 'package:modul7_homework/screens/home.dart';
 
 class NavigatorScreen extends StatefulWidget {
-  const NavigatorScreen({super.key});
+  final List<Movie> _movies;
+  const NavigatorScreen(this._movies, {super.key});
   static const routeName = '/';
 
   @override
@@ -19,10 +21,15 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
     });
   }
 
-  final List _list = [
-    const Home(),
-    const CategoriesM(),
-  ];
+  List _list = [];
+
+  @override
+  void initState() {
+    _list.add(Home(widget._movies));
+    _list.add(CategoriesM(widget._movies));
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

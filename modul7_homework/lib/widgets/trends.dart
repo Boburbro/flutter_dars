@@ -3,7 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Trends extends StatelessWidget {
-  const Trends({super.key});
+  final String imgUrl;
+  final String title;
+  const Trends(
+    this.imgUrl,
+    this.title,
+    {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class Trends extends StatelessWidget {
               width: 256,
               height: 336,
               child: Image.network(
-                "https://images.pexels.com/photos/10682514/pexels-photo-10682514.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                imgUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -32,9 +37,9 @@ class Trends extends StatelessWidget {
                     alignment: Alignment.center,
                     width: 221,
                     height: 80,
-                    child: const Text(
-                      "Qasoskorlar",
-                      style: TextStyle(
+                    child:  Text(
+                      title,
+                      style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
