@@ -28,7 +28,8 @@ class CategoriesM extends StatelessWidget {
               ),
               itemCount: _movies.length,
               itemBuilder: (ctx, index) {
-                return Trends(_movies[index].imgUrl, _movies[index].title);
+                return Trends(_movies[index].imgUrl, _movies[index].title,
+                    _movies[index].vId, _movies[index].description);
               }),
         ),
       ],

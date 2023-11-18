@@ -6,13 +6,16 @@ import 'package:modul7_homework/screens/movie_data.dart';
 class Trends extends StatelessWidget {
   final String imgUrl;
   final String title;
-  const Trends(this.imgUrl, this.title, {super.key});
+  final String vId;
+  final String descr;
+  const Trends(this.imgUrl, this.title, this.vId, this.descr, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(MovieData.routeName);
+        Navigator.of(context)
+            .pushNamed(MovieData.routeName, arguments: [vId, title, descr]);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
