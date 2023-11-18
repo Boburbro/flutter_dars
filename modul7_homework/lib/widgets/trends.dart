@@ -1,19 +1,19 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:modul7_homework/screens/movie_data.dart';
 
 class Trends extends StatelessWidget {
   final String imgUrl;
   final String title;
-  const Trends(
-    this.imgUrl,
-    this.title,
-    {super.key});
+  const Trends(this.imgUrl, this.title, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(MovieData.routeName);
+      },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: Stack(
@@ -37,7 +37,7 @@ class Trends extends StatelessWidget {
                     alignment: Alignment.center,
                     width: 221,
                     height: 80,
-                    child:  Text(
+                    child: Text(
                       title,
                       style: const TextStyle(
                           fontSize: 18,

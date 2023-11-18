@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modul7_homework/models/movies.dart';
+import 'package:modul7_homework/screens/movie_data.dart';
 import 'package:modul7_homework/screens/navigatorScreen.dart';
 
 void main(List<String> args) {
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       routes: {
         NavigatorScreen.routeName: (context) =>  NavigatorScreen(_muvies.list),
+        MovieData.routeName:(context) => const MovieData(),
       },
     );
   }
