@@ -1,9 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:modul8_1/screens/home.dart';
-import 'package:modul8_1/screens/product_detals.dart';
-import 'package:modul8_1/style/them.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/products.dart';
+import '../screens/home.dart';
+import '../screens/product_detals.dart';
+import '../style/them.dart';
+
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -16,16 +20,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: them,
-      home: HomeScreen(),
-      initialRoute: "/",
-      routes: {
-        HomeScreen.routeName:(context) => HomeScreen(),
-        ProductDetals.routeName:(context) => const ProductDetals()
-
+    return ChangeNotifierProvider<Products>(
+      create: (context) {
+        return Products();
       },
+      child: MaterialApp(
+        theme: them,
+        initialRoute: "/",
+        routes: {
+          HomeScreen.routeName: (context) => const HomeScreen(),
+          ProductDetals.routeName: (context) => const ProductDetals()
+        },
+      ),
     );
-    
   }
 }

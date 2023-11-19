@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:modul8_1/models/product.dart';
-import 'package:modul8_1/widgets/product_item.dart';
+import 'package:provider/provider.dart';
+import '../providers/products.dart';
+import '../widgets/product_item.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   static const routeName = "/";
 
-  HomeScreen({super.key});
-
-  List<Product> list = Products().items;
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final productsData = Provider.of<Products>(context);
+    final list = productsData.items;
+
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
