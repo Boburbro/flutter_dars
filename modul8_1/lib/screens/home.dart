@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/product.dart';
 import '../providers/products.dart';
 import '../widgets/product_item.dart';
 
@@ -13,7 +14,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context);
     final list = productsData.items;
-
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +30,12 @@ class HomeScreen extends StatelessWidget {
             crossAxisSpacing: 20,
           ),
           itemBuilder: (ctx, i) {
-            return ProductItem(list[i]);
+            return ChangeNotifierProvider<Product>(
+              create: (context) {
+                return list[i];
+              },
+              child: const ProductItem(),
+            );
           }),
     );
   }
