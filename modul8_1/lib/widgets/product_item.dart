@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:modul8_1/screens/product_detals.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/card_provider.dart';
+import '../screens/product_detals.dart';
 import '../models/product.dart';
 
 class ProductItem extends StatelessWidget {
@@ -10,6 +11,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
+    final cardItem = Provider.of<CartProvider>(context, listen: false);
     return InkWell(
       onTap: () {
         Navigator.of(context)
@@ -21,7 +23,6 @@ class ProductItem extends StatelessWidget {
           footer: GridTileBar(
             leading: Consumer<Product>(
               builder: (ctx, pro, child) {
-               
                 return IconButton(
                   onPressed: () {
                     pro.changeFavorite();
@@ -41,7 +42,10 @@ class ProductItem extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             trailing: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                cardItem.addNewCartItem(
+                    product.id, product.title, product.imgUrl, product.price);
+              },
               icon: Icon(
                 Icons.shopping_cart_rounded,
                 color: Theme.of(context).primaryColor,
