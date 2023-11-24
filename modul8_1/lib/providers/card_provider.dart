@@ -71,4 +71,9 @@ class CartProvider with ChangeNotifier {
     });
     return total;
   }
+
+  void removeItem(pId) {
+    _items.removeWhere((key, value) => key == pId);
+    notifyListeners();
+  }
 }

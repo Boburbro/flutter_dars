@@ -16,53 +16,51 @@ class CartScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text("Sizning savatchangiz"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
-        child: Column(
-          children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Umumiy: ",
-                      // ignore: deprecated_member_use
-                      style: TextStyle(fontSize: 16),
+      body: Column(
+        children: [
+          Card(
+            margin: const EdgeInsets.all(10),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Umumiy: ",
+                    // ignore: deprecated_member_use
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  const Spacer(),
+                  Chip(
+                    label: Text(
+                      "\$${cartData.totalPrice}",
+                      style: const TextStyle(color: Colors.white),
                     ),
-                    const Spacer(),
-                    Chip(
-                      label: Text(
-                        "\$${cartData.totalPrice}",
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
-                    TextButton(
-                        onPressed: () {}, child: const Text("Buyurtma berish"))
-                  ],
-                ),
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                  TextButton(
+                      onPressed: () {}, child: const Text("Buyurtma berish"))
+                ],
               ),
             ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: cartData.items.length,
-                itemBuilder: (c, i) {
-                  final cartItem = cartData.items.values.toList()[i];
-                  return CartListItem(
-                    proId: cartData.items.keys.toList()[i],
-                    imgUrl: cartItem.imgUrl,
-                    title: cartItem.title,
-                    price: cartItem.price,
-                    quantity: cartItem.quantity,
-                  );
-                },
-              ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: ListView.builder(
+              itemCount: cartData.items.length,
+              itemBuilder: (c, i) {
+                final cartItem = cartData.items.values.toList()[i];
+                return CartListItem(
+                  proId: cartData.items.keys.toList()[i],
+                  imgUrl: cartItem.imgUrl,
+                  title: cartItem.title,
+                  price: cartItem.price,
+                  quantity: cartItem.quantity,
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
