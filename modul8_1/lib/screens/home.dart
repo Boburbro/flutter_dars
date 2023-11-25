@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:modul8_1/screens/cart_screen.dart';
+import 'package:modul8_1/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/card_provider.dart';
@@ -71,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: GridViewItem(showFavoriteItems: _showFavoriteItems),
+      drawer: const AppDrawer(),
     );
   }
 }
