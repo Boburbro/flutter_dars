@@ -45,7 +45,7 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeSingleItem(String productId) {
+  void removeSingleItem(String productId, {bool isCartButton = false}) {
     if (!_items.containsKey(productId)) {
       return;
     }
@@ -61,6 +61,9 @@ class CartProvider with ChangeNotifier {
         ),
       );
       notifyListeners();
+    }
+    else if (isCartButton) {
+      removeItem(productId);
     }
   }
 

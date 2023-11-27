@@ -44,7 +44,24 @@ class ProductItem extends StatelessWidget {
             trailing: IconButton(
               onPressed: () {
                 cardItem.addNewCartItem(
-                    product.id, product.title, product.imgUrl, product.price);
+                  product.id,
+                  product.title,
+                  product.imgUrl,
+                  product.price,
+                );
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text("Successful"),
+                    action: SnackBarAction(
+                      label: "CANCEL",
+                      onPressed: () {
+                        cardItem.removeSingleItem(product.id,
+                            isCartButton: true);
+                      },
+                    ),
+                  ),
+                );
               },
               icon: Icon(
                 Icons.shopping_cart_rounded,

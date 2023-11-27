@@ -40,10 +40,10 @@ class _OrderItemState extends State<OrderItem> {
           ),
           if (_expandItems)
             Container(
-              padding: const EdgeInsets.all(5),
-              height: min(widget.products.length * 20 + 50, 100),
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+              height: widget.products.length * 25,
               child: ListView.builder(
-                  itemExtent: 30,
+                  itemExtent: 23,
                   itemCount: widget.products.length,
                   itemBuilder: (ctx, index) {
                     final product = widget.products[index];
