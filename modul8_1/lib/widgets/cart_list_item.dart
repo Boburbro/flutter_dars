@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,7 @@ class CartListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final _cart = Provider.of<CartProvider>(context);
     return Slidable(
       endActionPane: ActionPane(
@@ -29,7 +32,7 @@ class CartListItem extends StatelessWidget {
         children: [
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).errorColor,
+              primary: Theme.of(context).colorScheme.error,
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               shape: BeveledRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
