@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modul7_homework/models/movies.dart';
-import 'package:modul7_homework/screens/movie_data.dart';
-import 'package:modul7_homework/screens/navigatorScreen.dart';
+
+import './models/movies.dart';
+import './screens/movie_data.dart';
+import './screens/navigatorScreen.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
