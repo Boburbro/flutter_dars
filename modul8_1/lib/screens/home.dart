@@ -38,15 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Mening do'konim"),
         actions: [
           PopupMenuButton(onSelected: (SelectedScreenIndex value) {
-            setState(() {
-              if (value == SelectedScreenIndex.All) {
-                // ... All
-                _showFavoriteItems = false;
-              } else {
-                // ... Favorite
-                _showFavoriteItems = true;
-              }
-            });
+            setState(
+              () {
+                if (value == SelectedScreenIndex.All) {
+                  // ... All
+                  _showFavoriteItems = false;
+                } else {
+                  // ... Favorite
+                  _showFavoriteItems = true;
+                }
+              },
+            );
           }, itemBuilder: (ctx) {
             return const [
               PopupMenuItem(

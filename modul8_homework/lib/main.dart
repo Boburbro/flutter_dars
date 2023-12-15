@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modul8_homework/providers/product_provider.dart';
+import 'package:modul8_homework/screens/cart_screen.dart';
 import 'package:provider/provider.dart';
+
 import './screens/home.dart';
+
+import './providers/product_provider.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -28,7 +31,8 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          Home.routeName: (context) => const Home(),
+          Home.routeName: (context) => Home(),
+          CartScreen.routeName: (context) => const CartScreen(),
         },
       ),
     );

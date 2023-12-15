@@ -14,7 +14,9 @@ class ProductData extends StatelessWidget {
           child: GridTile(
             footer: GridTileBar(
               leading: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  product.changeFavorite();
+                },
                 icon: Icon(
                   product.isFavorited
                       ? Icons.favorite_rounded

@@ -1,32 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:modul8_homework/model/product.dart';
-import 'package:modul8_homework/providers/product_provider.dart';
-import 'package:modul8_homework/widgets/app_drower.dart';
-import 'package:modul8_homework/widgets/product_data.dart';
-import 'package:provider/provider.dart';
+import 'package:modul8_homework/screens/cart_screen.dart';
+import 'package:modul8_homework/widgets/home_screen_body.dart';
 
-class Home extends StatelessWidget {
+import '../widgets/app_drower.dart';
+
+enum SelectedScreenIndex {
+  // ignore: constant_identifier_names
+  All,
+  // ignore: constant_identifier_names
+  Favorite,
+}
+
+class Home extends StatefulWidget {
   static const routeName = '/';
 
-  const Home({super.key});
+  Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var _showFavoriteScreen = false;
 
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<ProductProvider>(context).items;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Mening do'konim"),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert_rounded),
+          PopupMenuButton(
+            onSelected: (value) {
+              setState(() {
+                if (value == SelectedScreenIndex.All) {
+                  _showFavoriteScreen = false;
+                } else {
+                  _showFavoriteScreen = true;
+                }
+              });
+            },
+            itemBuilder: (ctx) {
+              return const [
+                PopupMenuItem(
+                  value: SelectedScreenIndex.All,
+                  child: Text("Barchasi"),
+                ),
+                PopupMenuItem(
+                  value: SelectedScreenIndex.Favorite,
+                  child: Text("Sevimlilar"),
+                ),
+              ];
+            },
           ),
           Stack(
             alignment: AlignmentDirectional.center,
             children: [
               IconButton(
-                onPressed: () {},
+                mouseCursor: MaterialStateMouseCursor.clickable,
+                tooltip: "Buyurtmalar",
+                onPressed: () {
+                  Navigator.of(context).pushNamed(CartScreen.routeName);
+                },
                 icon: const Icon(Icons.shopping_cart),
               ),
               Positioned(
@@ -53,21 +88,7 @@ class Home extends StatelessWidget {
         ],
       ),
       drawer: const AppDrawer(),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(20),
-        itemCount: productData.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: 3 / 2,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20),
-        itemBuilder: (ctx, index) {
-          return ChangeNotifierProvider<Product>.value(
-            value: productData[index],
-            child: const ProductData(),
-          );
-        },
-      ),
+      body: HomeScreenBody(_showFavoriteScreen),
     );
   }
 }
