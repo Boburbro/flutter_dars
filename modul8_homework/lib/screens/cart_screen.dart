@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modul8_homework/providers/cart_item_provider.dart';
+import 'package:modul8_homework/providers/order_rovider.dart';
 import 'package:modul8_homework/widgets/cart_title.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartData = Provider.of<CartItemProvider>(context);
     final cartItems = cartData.items.values.toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sizning savatchangiz"),
@@ -39,7 +41,12 @@ class CartScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   TextButton(
-                    onPressed: () => cartData.clearCart(),
+                    onPressed: () {
+                      Provider.of<OrderProvider>(context, listen: false)
+                          .addNewOrderItem(cartData.totalPrice, DateTime.now(),
+                              cartData.items.values.toList());
+                      cartData.clearCart();
+                    },
                     child: const Text("Buyurtma berish"),
                   )
                 ],
