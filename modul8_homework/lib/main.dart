@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modul8_homework/providers/cart_item_provider.dart';
 import 'package:modul8_homework/screens/cart_screen.dart';
+import 'package:modul8_homework/screens/order_screen.dart';
 import 'package:provider/provider.dart';
 
 import './screens/home.dart';
@@ -19,8 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ProductProvider>(
-          create: (context) => ProductProvider(),
-        )
+            create: (cxt) => ProductProvider()),
+        ChangeNotifierProvider(create: (ctx) => CartItemProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -31,8 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          Home.routeName: (context) => Home(),
+          Home.routeName: (context) => const Home(),
           CartScreen.routeName: (context) => const CartScreen(),
+          OrderScreen.routeName: (context) => const OrderScreen(),
         },
       ),
     );

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:modul8_homework/providers/cart_item_provider.dart';
 import 'package:modul8_homework/screens/cart_screen.dart';
+import 'package:modul8_homework/widgets/custom_cart.dart';
 import 'package:modul8_homework/widgets/home_screen_body.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/app_drower.dart';
 
@@ -14,7 +17,7 @@ enum SelectedScreenIndex {
 class Home extends StatefulWidget {
   static const routeName = '/';
 
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -53,37 +56,19 @@ class _HomeState extends State<Home> {
               ];
             },
           ),
-          Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              IconButton(
-                mouseCursor: MaterialStateMouseCursor.clickable,
-                tooltip: "Buyurtmalar",
-                onPressed: () {
-                  Navigator.of(context).pushNamed(CartScreen.routeName);
-                },
-                icon: const Icon(Icons.shopping_cart),
-              ),
-              Positioned(
-                top: 15,
-                right: 10,
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: const Text(
-                    "0",
-                    style: TextStyle(
-                      fontSize: 8,
-                    ),
-                  ),
-                ),
-              )
-            ],
+          Consumer<CartItemProvider>(
+            builder: (ctx, value, child) => CustomCart(
+              number: value.items.length.toString(),
+              child: child!,
+            ),
+            child: IconButton(
+              mouseCursor: MaterialStateMouseCursor.clickable,
+              tooltip: "Buyurtmalar",
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
           )
         ],
       ),

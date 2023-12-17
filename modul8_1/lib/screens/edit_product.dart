@@ -84,7 +84,6 @@ class _EditProductState extends State<EditProduct> {
       _hasImg = _product.imgUrl.isNotEmpty;
     });
 
-    print(_product.id);
     if (isDone && _hasImg) {
       _form.currentState!.save();
       if (_product.id.isEmpty) {
