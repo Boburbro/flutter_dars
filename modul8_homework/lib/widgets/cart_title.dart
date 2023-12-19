@@ -20,8 +20,7 @@ class CartTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _cart = Provider.of<CartItemProvider>(context);
-    print(productId);
+    final cartData = Provider.of<CartItemProvider>(context);
     return Slidable(
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
@@ -47,7 +46,7 @@ class CartTitle extends StatelessWidget {
                               backgroundColor: Colors.red,
                             ),
                             onPressed: () {
-                              _cart.removeItem(productId);
+                              cartData.removeItem(productId);
                               Navigator.of(context).pop();
                             },
                             child: const Text("Ha"),
@@ -72,7 +71,7 @@ class CartTitle extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () => number > 1
-                    ? _cart.removSingleItem(productId, title, imgUrl, price)
+                    ? cartData.removSingleItem(productId, title, imgUrl, price)
                     : {},
                 icon: Icon(
                   Icons.remove_rounded,
@@ -82,7 +81,7 @@ class CartTitle extends StatelessWidget {
               Chip(label: Text(number.toString())),
               IconButton(
                 onPressed: () =>
-                    _cart.addNewCartItem(productId, title, imgUrl, price),
+                    cartData.addNewCartItem(productId, title, imgUrl, price),
                 icon: const Icon(
                   Icons.add,
                   color: Colors.black,

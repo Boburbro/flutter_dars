@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modul8_homework/providers/cart_item_provider.dart';
-import 'package:modul8_homework/providers/order_rovider.dart';
-import 'package:modul8_homework/screens/cart_screen.dart';
-import 'package:modul8_homework/screens/edit_product_screen.dart';
-import 'package:modul8_homework/screens/manage_products.dart';
-import 'package:modul8_homework/screens/order_screen.dart';
 import 'package:provider/provider.dart';
 
 import './screens/home.dart';
+import './screens/cart_screen.dart';
+import './screens/edit_product_screen.dart';
+import './screens/manage_products.dart';
+import './screens/order_screen.dart';
 
+import './providers/order_rovider.dart';
+import './providers/cart_item_provider.dart';
 import './providers/product_provider.dart';
 
 void main(List<String> args) {
