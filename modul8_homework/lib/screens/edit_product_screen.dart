@@ -1,26 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:modul8_homework/model/product.dart';
+import 'package:modul8_homework/providers/product_provider.dart';
 import 'package:modul8_homework/widgets/edit_product_text_form_field.dart';
+import 'package:modul8_homework/widgets/show_input_img_sheet.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class EditProductScreen extends StatelessWidget {
-  final _mainKey = GlobalKey<FormState>();
-
-  EditProductScreen({super.key});
+class EditProductScreen extends StatefulWidget {
+  const EditProductScreen({super.key});
 
   static const routeName = "/edit-product";
 
-  var _product = Product(
-    id: '',
-    title: '',
-    description: '',
-    price: 0,
-    imgUrl: '',
-  );
+  @override
+  State<EditProductScreen> createState() => _EditProductScreenState();
+}
+
+class _EditProductScreenState extends State<EditProductScreen> {
+  final _mainKey = GlobalKey<FormState>();
+  final _imgURLkey = GlobalKey<FormState>();
+
+  bool _hasImg = true;
+  bool _init = true;
+
+  var _product =
+      Product(id: '', title: '', description: '', price: 0, imgUrl: '');
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_init) {
+      final data = ModalRoute.of(context)!.settings.arguments;
+      if (data != null) {
+        // ignore: no_leading_underscores_for_local_identifiers
+        final _editingProduct =
+            Provider.of<ProductProvider>(context).findById(data as String);
+        _product = _editingProduct;
+      }
+    }
+    _init = false;
+  }
 
   _save() {
-    _mainKey.currentState!.save();
-    _mainKey.currentState!.validate();
+    bool isSuccessful = _mainKey.currentState!.validate();
+    setState(() {
+      _hasImg = _product.imgUrl.isNotEmpty;
+    });
+
+    if (isSuccessful && _hasImg) {
+      _mainKey.currentState!.save();
+      if (_product.id.isEmpty) {
+        Provider.of<ProductProvider>(context, listen: false)
+            .addNewProduct(_product);
+      } else {
+        Provider.of<ProductProvider>(context, listen: false)
+            .editProduct(_product);
+      }
+
+      Navigator.of(context).pop();
+    }
+  }
+
+  void saveImg(String img) {
+    setState(
+      () {
+        _product = Product(
+          id: _product.id,
+          title: _product.title,
+          description: _product.description,
+          price: _product.price,
+          imgUrl: img,
+        );
+        _hasImg = _product.imgUrl.isNotEmpty;
+      },
+    );
+  }
+
+  void openShowInputImgSheet(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return ShowInputImgSheet(
+          imgURLkey: _imgURLkey,
+          imgURLSaver: saveImg,
+        );
+      },
+    );
   }
 
   @override
@@ -50,12 +114,22 @@ class EditProductScreen extends StatelessWidget {
                   label: const Text("Name"),
                   initialValue: _product.title,
                   textInputAction: TextInputAction.next,
+                  onSaved: (value) {
+                    _product = Product(
+                      id: _product.id,
+                      title: value!,
+                      description: _product.description,
+                      price: _product.price,
+                      imgUrl: _product.imgUrl,
+                    );
+                  },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Bu qator bo'sh";
                     } else if (value.length < 4) {
                       return "Kamida 5 ta harf bo'lishi shart";
                     }
+                    return null;
                   },
                 ),
                 const SizedBox(height: 14),
@@ -65,6 +139,15 @@ class EditProductScreen extends StatelessWidget {
                       _product.price == 0.0 ? "" : _product.price.toString(),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
+                  onSaved: (value) {
+                    _product = Product(
+                      id: _product.id,
+                      title: _product.title,
+                      description: _product.description,
+                      price: double.parse(value!),
+                      imgUrl: _product.imgUrl,
+                    );
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Bo\'sh bo\'lidhi mumkin emas';
@@ -82,6 +165,15 @@ class EditProductScreen extends StatelessWidget {
                   maxLines: 5,
                   alignLabelWithHint: true,
                   initialValue: _product.description,
+                  onSaved: (value) {
+                    _product = Product(
+                      id: _product.id,
+                      title: _product.title,
+                      description: value!,
+                      price: _product.price,
+                      imgUrl: _product.imgUrl,
+                    );
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Bo\'sh qolmasligi kerak!';
@@ -93,23 +185,30 @@ class EditProductScreen extends StatelessWidget {
                 InkWell(
                   splashColor: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(5),
-                  onTap: () {
-                    // ... todo
-                  },
+                  onTap: () => openShowInputImgSheet(context),
                   child: Container(
                     alignment: Alignment.center,
                     height: 250,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Colors.black45),
-                    ),
-                    child: const Text(
-                      "Asosy rasim url-ni kiriting!",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      border: Border.all(
+                        color: _hasImg ? Colors.black45 : Colors.red,
                       ),
                     ),
+                    child: _product.imgUrl.isEmpty
+                        ? Text(
+                            "Asosy rasim url-ni kiriting!",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: _hasImg ? Colors.black : Colors.red,
+                            ),
+                          )
+                        : Image.network(
+                            _product.imgUrl,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
                   ),
                 ),
               ],

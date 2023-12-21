@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modul8_homework/providers/product_provider.dart';
 import 'package:modul8_homework/screens/edit_product_screen.dart';
 import 'package:modul8_homework/widgets/app_drower.dart';
+import 'package:modul8_homework/widgets/user_product_built.dart';
 import 'package:provider/provider.dart';
 
 class ManageProducts extends StatelessWidget {
@@ -29,34 +30,9 @@ class ManageProducts extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           itemCount: products.length,
           itemBuilder: (ctx, index) {
-            return Card(
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    products[index].imgUrl,
-                  ),
-                ),
-                title: Text(products[index].title),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.edit_rounded,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.delete_forever_rounded,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            return ChangeNotifierProvider.value(
+              value: products[index],
+              child: const UserProductBuild(),
             );
           }),
     );

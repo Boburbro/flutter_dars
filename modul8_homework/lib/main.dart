@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.teal,
           useMaterial3: false,
-          fontFamily: GoogleFonts.montserrat().fontFamily,
+          fontFamily: GoogleFonts.lato().fontFamily,
         ),
         initialRoute: '/',
         routes: {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           CartScreen.routeName: (context) => const CartScreen(),
           OrderScreen.routeName: (context) => const OrderScreen(),
           ManageProducts.routeName: (context) => const ManageProducts(),
-          EditProductScreen.routeName: (context) =>  EditProductScreen(),
+          EditProductScreen.routeName: (context) => const EditProductScreen(),
         },
       ),
     );
