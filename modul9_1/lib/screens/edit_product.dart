@@ -98,7 +98,7 @@ class _EditProductState extends State<EditProduct> {
               .addNewProduct(_product);
         } catch (error) {
           // ignore: use_build_context_synchronously
-          await showDialog(
+          await showDialog<Null>(
               context: context,
               builder: (ctx) {
                 return AlertDialog(
@@ -112,17 +112,34 @@ class _EditProductState extends State<EditProduct> {
                   ],
                 );
               });
-        } finally {
-          Navigator.of(context).pop();
-          setState(() {
-            _isLoading = false;
-          });
         }
       } else {
-        Provider.of<Products>(context, listen: false).editProduct(_product);
-
-        Navigator.of(context).pop();
+        try {
+          await Provider.of<Products>(context, listen: false)
+              .editProduct(_product);
+        } catch (e) {
+          // ignore: use_build_context_synchronously
+          await showDialog<Null>(
+              context: context,
+              builder: (ctx) {
+                return AlertDialog(
+                  title: const Text("Xatolik!"),
+                  content:
+                      const Text("Maxsulot qo'yishda xatolik sodir bo'ldi."),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () => Navigator.of(ctx).pop(),
+                        child: const Text("Okay"))
+                  ],
+                );
+              });
+        }
       }
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop();
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 

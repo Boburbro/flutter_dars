@@ -2,44 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:modul9_1/service/http_exception.dart';
 
 import '../models/product.dart';
 
 class Products with ChangeNotifier {
-  final List<Product> _items = [
-    // Product(
-    //   id: "p1",
-    //   title: "Samsung s23",
-    //   price: 980.0,
-    //   des: "Eng zo'ri",
-    //   imgUrl:
-    //       "https://images.pexels.com/photos/15493878/pexels-photo-15493878/free-photo-of-hands-on-samsung-galaxy-s23-ultra-5g-green-color-mention-zana_qaradaghy-on-instagram-while-use-this-photo-follow-on-instagram-zana_qaradaghy.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    // ),
-    // Product(
-    //   id: "p2",
-    //   title: "Smart watch",
-    //   price: 50,
-    //   des: "eng zamonavi fitnes soat",
-    //   imgUrl:
-    //       "https://images.pexels.com/photos/3927389/pexels-photo-3927389.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    // ),
-    // Product(
-    //   id: "p3",
-    //   title: "Smart watch",
-    //   price: 100,
-    //   des: "eng zamonavi fitnes soat",
-    //   imgUrl:
-    //       "https://images.pexels.com/photos/3927389/pexels-photo-3927389.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    // ),
-    // Product(
-    //   id: "p4",
-    //   title: "Apple",
-    //   price: 2000,
-    //   des: "Yaxshi kompyuter",
-    //   imgUrl:
-    //       "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    // ),
-  ];
+  List<Product> _items = [];
 
   List<Product> get items {
     return [..._items];
@@ -58,7 +26,23 @@ class Products with ChangeNotifier {
         "https://fir-app-aac00-default-rtdb.firebaseio.com/products.json");
     try {
       final respons = await http.get(url);
-      print(jsonDecode(respons.body));
+      if (jsonDecode(respons.body) != null) {
+        final data = jsonDecode(respons.body) as Map<String, dynamic>;
+        final List<Product> loadedProducts = [];
+
+        data.forEach((productId, value) {
+          loadedProducts.add(Product(
+            id: productId,
+            title: value['title'],
+            price: value['price'],
+            des: value['description'],
+            imgUrl: value['imgUrl'],
+            isFavorite: value['isFavorite'],
+          ));
+        });
+        _items = loadedProducts;
+        notifyListeners();
+      }
     } catch (error) {
       rethrow;
     }
@@ -96,16 +80,53 @@ class Products with ChangeNotifier {
     }
   }
 
-  void editProduct(Product editedProduct) {
-    // ignore: no_leading_underscores_for_local_identifiers
-    final _productId =
-        _items.indexWhere((element) => element.id == editedProduct.id);
-    _items[_productId] = editedProduct;
-    notifyListeners();
+  Future<void> editProduct(Product editedProduct) async {
+    final productIndex =
+        _items.indexWhere((element) => editedProduct.id == element.id);
+    if (productIndex >= 0) {
+      try {
+        final Uri url = Uri.parse(
+            "https://fir-app-aac00-default-rtdb.firebaseio.com/products/${editedProduct.id}.json");
+        await http.patch(
+          url,
+          body: jsonEncode(
+            {
+              'description': editedProduct.des,
+              'price': editedProduct.price,
+              'title': editedProduct.title,
+              'imgUrl': editedProduct.imgUrl,
+            },
+          ),
+        );
+        _items[productIndex] = editedProduct;
+        notifyListeners();
+      } catch (e) {
+        rethrow;
+      }
+    }
   }
 
-  void deleteById(String id) {
-    _items.removeWhere((element) => element.id == id);
-    notifyListeners();
+  Future<void> deleteById(String id) async {
+    final Uri url = Uri.parse(
+        "https://fir-app-aac00-default-rtdb.firebaseio.com/products/$id.json");
+
+    try {
+      final deletingPeoduct = _items.firstWhere((element) => element.id == id);
+      final deletingProductIndex =
+          _items.indexWhere((element) => element.id == id);
+      _items.removeWhere((element) => element.id == id);
+      notifyListeners();
+
+      final respons = await http.delete(url);
+      _items.removeWhere((element) => element.id == id);
+
+      if (respons.statusCode != 200) {
+        _items.insert(deletingProductIndex, deletingPeoduct);
+        notifyListeners();
+        throw HttpException(message: "Xatolik bor!");
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }

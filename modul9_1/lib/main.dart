@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import './screens/edit_product.dart';
 import 'package:provider/provider.dart';
 
 import '../style/them.dart';
 
-import '../screens/manage_product.dart';
-import '../screens/order_screen.dart';
-import '../screens/home.dart';
-import '../screens/product_detals.dart';
-import '../screens/cart_screen.dart';
+import './screens/manage_product.dart';
+import './screens/order_screen.dart';
+import './screens/home.dart';
+import './screens/edit_product.dart';
+import './screens/product_detals.dart';
+import './screens/cart_screen.dart';
 
-import '../providers/products.dart';
-import '../providers/card_provider.dart';
-import '../providers/order_provider.dart';
+import './providers/products.dart';
+import './providers/card_provider.dart';
+import './providers/order_provider.dart';
 
 void main(List<String> args) {
   runApp(MyApp());

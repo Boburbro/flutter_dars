@@ -11,6 +11,10 @@ class ManageProduct extends StatelessWidget {
 
   const ManageProduct({super.key});
 
+  Future<void> _refresh(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false).getProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productsModel = Provider.of<Products>(context);
@@ -27,16 +31,19 @@ class ManageProduct extends StatelessWidget {
         ],
       ),
       drawer: const AppDrawer(),
-      body: ListView.builder(
-          padding: const EdgeInsets.all(15),
-          itemCount: productsModel.items.length,
-          itemBuilder: (ctx, index) {
-            final product = productsModel.items[index];
-            return ChangeNotifierProvider.value(
-              value: product,
-              child: const UserProductItem(),
-            );
-          }),
+      body: RefreshIndicator(
+        onRefresh: () => _refresh(context),
+        child: ListView.builder(
+            padding: const EdgeInsets.all(15),
+            itemCount: productsModel.items.length,
+            itemBuilder: (ctx, index) {
+              final product = productsModel.items[index];
+              return ChangeNotifierProvider.value(
+                value: product,
+                child: const UserProductItem(),
+              );
+            }),
+      ),
     );
   }
 }

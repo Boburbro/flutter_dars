@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:modul9_1/screens/order_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/card_provider.dart';
 import '../providers/order_provider.dart';
 import '../widgets/cart_list_item.dart';
-
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -41,16 +41,7 @@ class CartScreen extends StatelessWidget {
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  TextButton(
-                      onPressed: () {
-                        Provider.of<OrderProvider>(context, listen: false)
-                            .addNewOrder(
-                          cartData.items.values.toList(),
-                          cartData.totalPrice,
-                        );
-                        cartData.clearItems();
-                      },
-                      child: const Text("Buyurtma berish"))
+                  OrderButtonBuilder(cartData: cartData)
                 ],
               ),
             ),
@@ -73,6 +64,48 @@ class CartScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class OrderButtonBuilder extends StatefulWidget {
+  const OrderButtonBuilder({
+    super.key,
+    required this.cartData,
+  });
+
+  final CartProvider cartData;
+
+  @override
+  State<OrderButtonBuilder> createState() => _OrderButtonBuilderState();
+}
+
+class _OrderButtonBuilderState extends State<OrderButtonBuilder> {
+  var _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: (widget.cartData.items.isEmpty || _isLoading)
+          ? null
+          : () async {
+              setState(() {
+                _isLoading = true;
+              });
+              await Provider.of<OrderProvider>(context, listen: false)
+                  .addNewOrder(
+                widget.cartData.items.values.toList(),
+                widget.cartData.totalPrice,
+              );
+              widget.cartData.clearItems();
+              setState(() {
+                _isLoading = false;
+              });
+              Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
+            },
+      child: _isLoading
+          ? const CircularProgressIndicator()
+          : const Text("Buyurtma berish"),
     );
   }
 }
