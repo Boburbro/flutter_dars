@@ -18,49 +18,62 @@ class GridViewItem extends StatefulWidget {
 }
 
 class _GridViewItemState extends State<GridViewItem> {
-  var _isLoading = false;
+  late Future _getData;
+  Future _setData() {
+    return _getData =
+        Provider.of<Products>(context, listen: false).getProducts();
+  }
 
   @override
   void initState() {
-    setState(() {
-      _isLoading = true;
-    });
-    Provider.of<Products>(context, listen: false).getProducts().then((_) {
-      setState(() {
-        _isLoading = false;
-      });
-    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<Products>(context, listen: false);
-    final list =
-        widget.showFavoriteItems ? productsData.favorite : productsData.items;
-    return _isLoading
-        ? const Center(
+    return FutureBuilder(
+      future: _getData,
+      builder: (ctx, dataSnapShot) {
+        if (dataSnapShot.connectionState == ConnectionState.waiting) {
+          return const Center(
             child: CupertinoActivityIndicator(
-              radius: 30,
               color: CupertinoColors.activeBlue,
+              radius: 20,
             ),
-          )
-        : list.isNotEmpty
-            ? GridView.builder(
-                padding: const EdgeInsets.all(20),
-                itemCount: list.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 3 / 2,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                ),
-                itemBuilder: (ctx, i) {
-                  return ChangeNotifierProvider<Product>.value(
-                    value: list[i],
-                    child: const ProductItem(),
-                  );
-                })
-            : const Center(child: Text("Maxsulot yo'q"));
+          );
+        } else {
+          if (dataSnapShot.error == null) {
+            return Consumer<Products>(
+              builder: (context, products, child) {
+                final list = widget.showFavoriteItems
+                    ? products.favorite
+                    : products.items;
+                return list.isNotEmpty
+                    ? GridView.builder(
+                        padding: const EdgeInsets.all(20),
+                        itemCount: list.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          childAspectRatio: 3 / 2,
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 20,
+                        ),
+                        itemBuilder: (ctx, i) {
+                          return ChangeNotifierProvider<Product>.value(
+                            value: list[i],
+                            child: const ProductItem(),
+                          );
+                        },
+                      )
+                    : const Center(child: Text("Maxsulot yo'q"));
+              },
+            );
+          } else {
+            return const Center(child: Text("Xatolik!"));
+          }
+        }
+      },
+    );
   }
 }
