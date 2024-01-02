@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modul10/providers/auth.dart';
 import 'package:modul10/screens/auth.dart';
@@ -47,7 +48,25 @@ class MyApp extends StatelessWidget {
         builder: (context, authData, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: them,
-          home: authData.isAuth ? const HomeScreen() : const AuthScreen(),
+          home: authData.isAuth
+              ? const HomeScreen()
+              : FutureBuilder(
+                  future: authData.autoLogin(),
+                  builder: (ctx, autoLogInSnabshot) {
+                    if (autoLogInSnabshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Scaffold(
+                        body: Center(
+                          child: CupertinoActivityIndicator(
+                              color: CupertinoColors.activeBlue),
+                        ),
+                      );
+                    } else {
+                      return const AuthScreen();
+                    }
+                  },
+                ),
+
           // initialRoute: authData.isAuth ? "/home" : "/auth",
           routes: {
             HomeScreen.routeName: (context) => const HomeScreen(),
