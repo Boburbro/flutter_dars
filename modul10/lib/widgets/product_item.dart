@@ -24,7 +24,7 @@ class ProductItem extends StatelessWidget {
         child: GridTile(
           footer: GridTileBar(
             leading: Consumer<Product>(
-              builder: (ctx, pro, child) {
+              builder: (ctx, pro, _) {
                 return IconButton(
                   onPressed: () {
                     pro.changeFavorite(authData.token!, authData.userId!);
