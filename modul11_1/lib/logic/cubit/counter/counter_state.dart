@@ -4,8 +4,8 @@ abstract class CounterState {
   CounterState(this.number);
 }
 
-class CounterInitila extends CounterState {
-  CounterInitila(super.number);
+class CounterInitial extends CounterState {
+  CounterInitial(super.number);
 }
 
 class CounterLoading extends CounterState {

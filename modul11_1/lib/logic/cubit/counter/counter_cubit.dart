@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 
-import './counter_state.dart';
+import 'counter_state.dart';
 
 class CounterCubit extends Cubit<CounterState> {
-  CounterCubit() : super(CounterInitila(0));
+  CounterCubit() : super(CounterInitial(0));
 
   void increment() async {
     emit(CounterLoading(state.number));
