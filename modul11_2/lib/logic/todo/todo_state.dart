@@ -1,14 +1,21 @@
 part of 'todo_cubit.dart';
 
 @immutable
-sealed class TodoState {
+class TodoState {
   final List<Todo> todos;
 
   const TodoState(this.todos);
 }
 
 final class TodoInitial extends TodoState {
-  final List<Todo> todos;
+  const TodoInitial(super.todos);
+}
 
-  const TodoInitial(this.todos) : super(todos);
+final class TodoAdded extends TodoState {
+  const TodoAdded(super.todos);
+}
+
+final class TodoError extends TodoState {
+  final String message;
+  const TodoError(this.message, super.todos);
 }

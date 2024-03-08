@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../logic/todo/todo_cubit.dart';
+import '../widgets/manageTodo.dart';
 import '../widgets/todoListItem.dart';
 
 class ToDoScreen extends StatelessWidget {
@@ -13,6 +14,16 @@ class ToDoScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("TodoScrees"),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () => showModalBottomSheet(
+              isDismissible: false,
+              context: context,
+              builder: (ctx) =>  ManageTodo(),
+            ),
+            icon: const Icon(Icons.add),
+          )
+        ],
       ),
       body: BlocBuilder<TodoCubit, TodoState>(
         builder: (context, state) {
@@ -20,7 +31,9 @@ class ToDoScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
               itemCount: state.todos.length,
-              itemBuilder: (ctx, index) =>  ToDoListItem(todo: state.todos[index],),
+              itemBuilder: (ctx, index) => ToDoListItem(
+                todo: state.todos[index],
+              ),
             ),
           );
         },
