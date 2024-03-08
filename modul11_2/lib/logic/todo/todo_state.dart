@@ -15,7 +15,20 @@ final class TodoAdded extends TodoState {
   const TodoAdded(super.todos);
 }
 
+final class TodoEdited extends TodoState {
+  const TodoEdited(super.todos);
+}
+
+final class TodoToggled extends TodoState {
+  const TodoToggled(super.todos);
+}
+
+final class TodoRemove extends TodoState {
+  const TodoRemove(super.todos);
+}
+
 final class TodoError extends TodoState {
   final String message;
   const TodoError(this.message, super.todos);
 }
+

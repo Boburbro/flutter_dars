@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../logic/todo/todo_cubit.dart';
 import '../widgets/manageTodo.dart';
-import '../widgets/todoListItem.dart';
+import '../widgets/todo_list_item.dart';
 
 class ToDoScreen extends StatelessWidget {
   const ToDoScreen({super.key});
@@ -19,7 +19,7 @@ class ToDoScreen extends StatelessWidget {
             onPressed: () => showModalBottomSheet(
               isDismissible: false,
               context: context,
-              builder: (ctx) =>  ManageTodo(),
+              builder: (ctx) => const ManageTodo(),
             ),
             icon: const Icon(Icons.add),
           )

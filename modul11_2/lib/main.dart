@@ -1,8 +1,8 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:modul11_2/logic/todo/todo_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './presentation/screens/todo_scrren.dart';
+import 'logic/todo/todo_cubit.dart';
+import 'presentation/screens/todo_scrren.dart';
 
 void main() {
   runApp(const MyApp());

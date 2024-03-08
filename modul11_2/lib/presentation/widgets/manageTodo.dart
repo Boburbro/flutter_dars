@@ -3,12 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/models/todo.dart';
 import '../../logic/todo/todo_cubit.dart';
 
-// ignore: must_be_immutable
-class ManageTodo extends StatelessWidget {
-  ManageTodo({super.key});
+class ManageTodo extends StatefulWidget {
+  final Todo? todo;
 
+  const ManageTodo({this.todo, super.key});
+
+  @override
+  State<ManageTodo> createState() => _ManageTodoState();
+}
+
+class _ManageTodoState extends State<ManageTodo> {
   final _formKey = GlobalKey<FormState>();
 
   String _title = "";
@@ -16,8 +23,17 @@ class ManageTodo extends StatelessWidget {
   void _submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-
-      BlocProvider.of<TodoCubit>(context).addTodo(_title);
+      if (widget.todo == null) {
+        context.read<TodoCubit>().addTodo(_title);
+      } else {
+        context.read<TodoCubit>().editTodo(
+              Todo(
+                id: widget.todo!.id,
+                title: _title,
+                isDone: widget.todo!.isDone,
+              ),
+            );
+      }
     }
   }
 
@@ -25,7 +41,7 @@ class ManageTodo extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<TodoCubit, TodoState>(
       listener: (context, state) {
-        if (state is TodoAdded) {
+        if (state is TodoAdded || state is TodoAdded) {
           Navigator.of(context).pop();
         } else if (state is TodoError) {
           showDialog(
@@ -43,6 +59,7 @@ class ManageTodo extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                initialValue: widget.todo == null ? "" : widget.todo!.title,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: "Title",
@@ -67,7 +84,7 @@ class ManageTodo extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () => _submit(context),
-                    child: const Text("Add"),
+                    child: Text(widget.todo == null ? "Add" : "EDIT"),
                   ),
                 ],
               )
