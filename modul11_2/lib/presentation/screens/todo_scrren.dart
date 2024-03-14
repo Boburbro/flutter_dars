@@ -3,10 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../logic/todo/todo_cubit.dart';
 import '../widgets/manageTodo.dart';
+import '../widgets/search_bar.dart';
 import '../widgets/todo_list_item.dart';
 
 class ToDoScreen extends StatelessWidget {
   const ToDoScreen({super.key});
+
+  void openSearchBar(BuildContext context) {
+    showSearch(context: context, delegate: MySearchBar());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +20,9 @@ class ToDoScreen extends StatelessWidget {
         title: const Text("TodoScrees"),
         centerTitle: true,
         actions: [
+          IconButton(
+              onPressed: () => openSearchBar(context),
+              icon: const Icon(Icons.search_rounded)),
           IconButton(
             onPressed: () => showModalBottomSheet(
               isDismissible: false,
