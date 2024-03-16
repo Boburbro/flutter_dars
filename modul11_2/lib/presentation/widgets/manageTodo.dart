@@ -31,6 +31,7 @@ class _ManageTodoState extends State<ManageTodo> {
                 id: widget.todo!.id,
                 title: _title,
                 isDone: widget.todo!.isDone,
+                userId: widget.todo!.userId,
               ),
             );
       }

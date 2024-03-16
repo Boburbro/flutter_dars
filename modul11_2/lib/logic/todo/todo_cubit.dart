@@ -1,21 +1,33 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import '../user/user_cubit.dart';
 
 import '../../data/models/todo.dart';
 
 part 'todo_state.dart';
 
 class TodoCubit extends Cubit<TodoState> {
-  TodoCubit()
+  final UserCubit userCubit;
+
+  TodoCubit({required this.userCubit})
       : super(TodoInitial([
-          Todo(id: UniqueKey().toString(), title: "Go home"),
-          Todo(id: UniqueKey().toString(), title: "Go shopping"),
-          Todo(id: UniqueKey().toString(), title: "Go school"),
+          Todo(id: UniqueKey().toString(), title: "Go home", userId: "user1"),
+          Todo(id: UniqueKey().toString(), title: "Go shopping", userId: "2"),
+          Todo(id: UniqueKey().toString(), title: "Go school", userId: "1"),
         ]));
+
+  void getTodos() {
+    final user = UserCubit().currentUser;
+
+    final todos =
+        state.todos.where((element) => element.userId == user.id).toList();
+    emit(TodoState(todos));
+  }
 
   void addTodo(title) {
     try {
-      state.todos.add(Todo(id: UniqueKey().toString(), title: title));
+      state.todos
+          .add(Todo(id: UniqueKey().toString(), title: title, userId: "1"));
       emit(TodoState(state.todos));
       emit(TodoAdded(state.todos));
     } catch (e) {
@@ -38,7 +50,8 @@ class TodoCubit extends Cubit<TodoState> {
     try {
       final todos = state.todos.map((e) {
         if (e.id == id) {
-          return Todo(id: e.id, title: e.title, isDone: !e.isDone);
+          return Todo(
+              id: e.id, title: e.title, isDone: !e.isDone, userId: e.userId);
         }
         return e;
       }).toList();

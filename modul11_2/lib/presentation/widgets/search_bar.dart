@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modul11_2/logic/todo/todo_cubit.dart';
+
+import '../../logic/todo/todo_cubit.dart';
 
 class MySearchBar extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // showResults(context);
     return [
       TextButton(
         onPressed: () {
           query = '';
-          // showResults(context);
         },
         child: const Text('CLEAR'),
       ),
@@ -37,14 +36,13 @@ class MySearchBar extends SearchDelegate {
         : Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView.builder(
-                itemCount: todos.length,
-                itemBuilder: (ctx, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(todos[index].title),
-                    ),
-                  );
-                }),
+              itemCount: todos.length,
+              itemBuilder: (ctx, index) {
+                return ListTile(
+                  title: Text(todos[index].title),
+                );
+              },
+            ),
           );
   }
 

@@ -6,8 +6,24 @@ import '../widgets/manageTodo.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/todo_list_item.dart';
 
-class ToDoScreen extends StatelessWidget {
+class ToDoScreen extends StatefulWidget {
   const ToDoScreen({super.key});
+
+  @override
+  State<ToDoScreen> createState() => _ToDoScreenState();
+}
+
+class _ToDoScreenState extends State<ToDoScreen> {
+  var isinitialized = false;
+
+  @override
+  void didChangeDependencies() {
+    if (!isinitialized) {
+      context.read<TodoCubit>().getTodos();
+      isinitialized = true;
+    }
+    super.didChangeDependencies();
+  }
 
   void openSearchBar(BuildContext context) {
     showSearch(context: context, delegate: MySearchBar());
